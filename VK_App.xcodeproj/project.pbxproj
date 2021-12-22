@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		84478885276F3E4600D3577F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84478884276F3E4600D3577F /* AppDelegate.swift */; };
 		84478887276F3E4600D3577F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84478886276F3E4600D3577F /* SceneDelegate.swift */; };
-		84478889276F3E4600D3577F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84478888276F3E4600D3577F /* ViewController.swift */; };
+		84478889276F3E4600D3577F /* LoginScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84478888276F3E4600D3577F /* LoginScreenViewController.swift */; };
 		8447888C276F3E4600D3577F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8447888A276F3E4600D3577F /* Main.storyboard */; };
 		8447888E276F3E4600D3577F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8447888D276F3E4600D3577F /* Assets.xcassets */; };
 		84478891276F3E4600D3577F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8447888F276F3E4600D3577F /* LaunchScreen.storyboard */; };
@@ -19,7 +19,7 @@
 		84478881276F3E4600D3577F /* VK_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VK_App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84478884276F3E4600D3577F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84478886276F3E4600D3577F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		84478888276F3E4600D3577F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		84478888276F3E4600D3577F /* LoginScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenViewController.swift; sourceTree = "<group>"; };
 		8447888B276F3E4600D3577F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8447888D276F3E4600D3577F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84478890276F3E4600D3577F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -56,15 +56,39 @@
 		84478883276F3E4600D3577F /* VK_App */ = {
 			isa = PBXGroup;
 			children = (
-				84478884276F3E4600D3577F /* AppDelegate.swift */,
-				84478886276F3E4600D3577F /* SceneDelegate.swift */,
-				84478888276F3E4600D3577F /* ViewController.swift */,
-				8447888A276F3E4600D3577F /* Main.storyboard */,
+				8447889A276F3EE600D3577F /* Controllers */,
+				84478899276F3EB500D3577F /* View */,
+				84478898276F3EAD00D3577F /* Source */,
 				8447888D276F3E4600D3577F /* Assets.xcassets */,
-				8447888F276F3E4600D3577F /* LaunchScreen.storyboard */,
 				84478892276F3E4600D3577F /* Info.plist */,
 			);
 			path = VK_App;
+			sourceTree = "<group>";
+		};
+		84478898276F3EAD00D3577F /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				84478884276F3E4600D3577F /* AppDelegate.swift */,
+				84478886276F3E4600D3577F /* SceneDelegate.swift */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		84478899276F3EB500D3577F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8447888A276F3E4600D3577F /* Main.storyboard */,
+				8447888F276F3E4600D3577F /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8447889A276F3EE600D3577F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				84478888276F3E4600D3577F /* LoginScreenViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,7 +162,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84478889276F3E4600D3577F /* ViewController.swift in Sources */,
+				84478889276F3E4600D3577F /* LoginScreenViewController.swift in Sources */,
 				84478885276F3E4600D3577F /* AppDelegate.swift in Sources */,
 				84478887276F3E4600D3577F /* SceneDelegate.swift in Sources */,
 			);
