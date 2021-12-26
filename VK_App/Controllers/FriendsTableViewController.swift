@@ -9,29 +9,42 @@ import UIKit
 
 class FriendsTableViewController: UITableViewController {
 
-
+    var myFriends = generateMyFriends()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        tableView.register(
+            UINib(
+                nibName: "UserTableViewCell",
+                bundle: nil),
+            forCellReuseIdentifier: "userTableViewCell")
     }
 
     // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 1
+        return myFriends.count
     }
 
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard
+            let cell = tableView.dequeueReusableCell(withIdentifier: "userTableViewCell", for: indexPath) as? UserTableViewCell
+        else { return UITableViewCell() }
+        
+        let currentGroup = myFriends[indexPath.row]
+        cell.configure(user: currentGroup)
+        
+        return cell
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        defer{
+            self.tableView.deselectRow(at: indexPath, animated: true)
+        }
+        var currentFriend = myFriends[indexPath.row]
+        performSegue(withIdentifier: "goToFriendsPhotoCollection", sender: nil)
+    }
 
 
     /*
