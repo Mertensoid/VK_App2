@@ -11,33 +11,64 @@ import UIKit
 
 class PhotoCollectionViewController: UICollectionViewController {
 
-    var photos: [UIImage?] = [
-        UIImage(named: "summer-1"),
-        UIImage(named: "summer-2"),
-        UIImage(named: "summer-3"),
-        UIImage(named: "summer-4"),
-        UIImage(named: "summer-5"),
-        UIImage(named: "summer-6"),
-        UIImage(named: "summer-7"),
-        UIImage(named: "summer-8"),
-        UIImage(named: "summer-9"),
-        UIImage(named: "summer-10"),
-        UIImage(named: "summer-11"),
-        UIImage(named: "summer-12"),
-        UIImage(named: "summer-13"),
-        UIImage(named: "summer-14"),
-        UIImage(named: "summer-15"),
-        UIImage(named: "summer-16"),
-        UIImage(named: "summer-17"),
-        UIImage(named: "summer-18"),
-        UIImage(named: "summer-19"),
-        UIImage(named: "summer-20"),
-        UIImage(named: "summer-21"),
-        UIImage(named: "summer-22"),
-        UIImage(named: "summer-23"),
-        UIImage(named: "summer-24"),
-        UIImage(named: "summer-25")
+
+
+    var photos: [UserPhoto] = [
+        UserPhoto(photo: UIImage(named: "summer-1")!, liked: false),
+        UserPhoto(photo: UIImage(named: "summer-2")!, liked: false),
+        UserPhoto(photo: UIImage(named: "summer-3")!, liked: false),
+        UserPhoto(photo: UIImage(named: "summer-4")!, liked: false),
+        UserPhoto(photo: UIImage(named: "summer-5")!, liked: false),
+        UserPhoto(photo: UIImage(named: "summer-6")!, liked: false),
+        UserPhoto(photo: UIImage(named: "summer-7")!, liked: false),
+        UserPhoto(photo: UIImage(named: "summer-8")!, liked: false),
+        UserPhoto(photo: UIImage(named: "summer-9")!, liked: false),
+        UserPhoto(photo: UIImage(named: "summer-10")!, liked: false),
+        UserPhoto(photo: UIImage(named: "summer-11")!, liked: false),
+        UserPhoto(photo: UIImage(named: "summer-12")!, liked: false),
+        UserPhoto(photo: UIImage(named: "summer-13")!, liked: false),
+        UserPhoto(photo: UIImage(named: "summer-14")!, liked: false),
+        UserPhoto(photo: UIImage(named: "summer-15")!, liked: false),
+        UserPhoto(photo: UIImage(named: "summer-16")!, liked: false),
+        UserPhoto(photo: UIImage(named: "summer-17")!, liked: false),
+        UserPhoto(photo: UIImage(named: "summer-18")!, liked: false),
+        UserPhoto(photo: UIImage(named: "summer-19")!, liked: false),
+        UserPhoto(photo: UIImage(named: "summer-20")!, liked: false),
+        UserPhoto(photo: UIImage(named: "summer-21")!, liked: false),
+        UserPhoto(photo: UIImage(named: "summer-22")!, liked: false),
+        UserPhoto(photo: UIImage(named: "summer-23")!, liked: false),
+        UserPhoto(photo: UIImage(named: "summer-24")!, liked: false),
+        UserPhoto(photo: UIImage(named: "summer-25")!, liked: false),
     ]
+    
+//    var photos: [UIImage?] = [
+//        UIImage(named: "summer-1"),
+//        UIImage(named: "summer-2"),
+//        UIImage(named: "summer-3"),
+//        UIImage(named: "summer-4"),
+//        UIImage(named: "summer-5"),
+//        UIImage(named: "summer-6"),
+//        UIImage(named: "summer-7"),
+//        UIImage(named: "summer-8"),
+//        UIImage(named: "summer-9"),
+//        UIImage(named: "summer-10"),
+//        UIImage(named: "summer-11"),
+//        UIImage(named: "summer-12"),
+//        UIImage(named: "summer-13"),
+//        UIImage(named: "summer-14"),
+//        UIImage(named: "summer-15"),
+//        UIImage(named: "summer-16"),
+//        UIImage(named: "summer-17"),
+//        UIImage(named: "summer-18"),
+//        UIImage(named: "summer-19"),
+//        UIImage(named: "summer-20"),
+//        UIImage(named: "summer-21"),
+//        UIImage(named: "summer-22"),
+//        UIImage(named: "summer-23"),
+//        UIImage(named: "summer-24"),
+//        UIImage(named: "summer-25")
+//    ]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView!.register(
@@ -59,7 +90,7 @@ class PhotoCollectionViewController: UICollectionViewController {
         else {
             return UICollectionViewCell()
         }
-        cell.configure(userPhoto: photos[indexPath.row]!)
+        cell.configure(userPhoto: photos[indexPath.row])
     
         return cell
     }
