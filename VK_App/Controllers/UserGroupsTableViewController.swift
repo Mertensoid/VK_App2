@@ -21,8 +21,8 @@ class UserGroupsTableViewController: UITableViewController {
         guard
             segue.identifier == "addGroup",
             let findGroupController = segue.source as? FindGroupsTableViewController,
-            let groupIndexPath = findGroupController.tableView.indexPathForSelectedRow
-            //self.userGroups.contains {element in return true}
+            let groupIndexPath = findGroupController.tableView.indexPathForSelectedRow,
+            !userGroups.contains(findGroupController.allGroups[groupIndexPath.row])
         else { return }
         self.userGroups.append(findGroupController.allGroups[groupIndexPath.row])
         self.tableView.reloadData()

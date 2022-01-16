@@ -61,6 +61,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		840C690A277D963900DE0B6E /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CustomViews;
+			sourceTree = "<group>";
+		};
 		84478878276F3E4600D3577F = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +109,7 @@
 		84478899276F3EB500D3577F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				840C690A277D963900DE0B6E /* CustomViews */,
 				84A5767B2778770E004361BE /* ReusableCells */,
 				8447888A276F3E4600D3577F /* Main.storyboard */,
 				8447888F276F3E4600D3577F /* LaunchScreen.storyboard */,

@@ -32,8 +32,8 @@ class FriendsTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "userTableViewCell", for: indexPath) as? UserTableViewCell
         else { return UITableViewCell() }
         
-        let currentGroup = myFriends[indexPath.row]
-        cell.configure(user: currentGroup)
+        let currentUser = myFriends[indexPath.row]
+        cell.configView(user: currentUser)
         
         return cell
     }

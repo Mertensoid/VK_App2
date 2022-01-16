@@ -14,60 +14,64 @@ func generateMyFriends() -> [User] {
         userName: "First Friend",
         avatarPic: UIImage(named: "buisness_woman_icon_128x128")!,
         userPhotos: [
-            UIImage(named: "summer-1")!,
-            UIImage(named: "summer-2")!,
-            UIImage(named: "summer-3")!,
-            UIImage(named: "summer-4")!,
-            UIImage(named: "summer-5")!,
+            UserPhoto(photo: UIImage(named: "summer-1")!, liked: false),
+            UserPhoto(photo: UIImage(named: "summer-2")!, liked: false),
+            UserPhoto(photo: UIImage(named: "summer-3")!, liked: false),
+            UserPhoto(photo: UIImage(named: "summer-4")!, liked: false),
+            UserPhoto(photo: UIImage(named: "summer-5")!, liked: false)
         ]))
     myFriends.append(User(
         userName: "Second Friend",
         avatarPic: UIImage(named: "cook_icon_128x128")!,
         userPhotos: [
-            UIImage(named: "summer-6")!,
-            UIImage(named: "summer-7")!,
-            UIImage(named: "summer-8")!,
-            UIImage(named: "summer-9")!,
-            UIImage(named: "summer-10")!,
+            UserPhoto(photo: UIImage(named: "summer-6")!, liked: false),
+            UserPhoto(photo: UIImage(named: "summer-7")!, liked: false),
+            UserPhoto(photo: UIImage(named: "summer-8")!, liked: false),
+            UserPhoto(photo: UIImage(named: "summer-9")!, liked: false),
+            UserPhoto(photo: UIImage(named: "summer-10")!, liked: false)
         ]))
     myFriends.append(User(
         userName: "Third Friend",
         avatarPic: UIImage(named: "farmer_icon_128x128")!,
         userPhotos: [
-            UIImage(named: "summer-11")!,
-            UIImage(named: "summer-12")!,
-            UIImage(named: "summer-13")!,
-            UIImage(named: "summer-14")!,
-            UIImage(named: "summer-15")!,
+            UserPhoto(photo: UIImage(named: "summer-11")!, liked: false),
+            UserPhoto(photo: UIImage(named: "summer-12")!, liked: false),
+            UserPhoto(photo: UIImage(named: "summer-13")!, liked: false),
+            UserPhoto(photo: UIImage(named: "summer-14")!, liked: false),
+            UserPhoto(photo: UIImage(named: "summer-15")!, liked: false)
         ]))
     myFriends.append(User(
         userName: "Fourth Friend",
         avatarPic: UIImage(named: "nurse_icon_128x128")!,
         userPhotos: [
-            UIImage(named: "summer-16")!,
-            UIImage(named: "summer-17")!,
-            UIImage(named: "summer-18")!,
-            UIImage(named: "summer-19")!,
-            UIImage(named: "summer-20")!,
+            UserPhoto(photo: UIImage(named: "summer-16")!, liked: false),
+            UserPhoto(photo: UIImage(named: "summer-17")!, liked: false),
+            UserPhoto(photo: UIImage(named: "summer-18")!, liked: false),
+            UserPhoto(photo: UIImage(named: "summer-19")!, liked: false),
+            UserPhoto(photo: UIImage(named: "summer-20")!, liked: false)
         ]))
     myFriends.append(User(
         userName: "Fifth Friend",
         avatarPic: UIImage(named: "worker_icon_128x128")!,
         userPhotos: [
-            UIImage(named: "summer-21")!,
-            UIImage(named: "summer-22")!,
-            UIImage(named: "summer-23")!,
-            UIImage(named: "summer-24")!,
-            UIImage(named: "summer-25")!,
+            UserPhoto(photo: UIImage(named: "summer-21")!, liked: false),
+            UserPhoto(photo: UIImage(named: "summer-22")!, liked: false),
+            UserPhoto(photo: UIImage(named: "summer-23")!, liked: false),
+            UserPhoto(photo: UIImage(named: "summer-24")!, liked: false),
+            UserPhoto(photo: UIImage(named: "summer-25")!, liked: false)
         ]))
     return myFriends
 }
 
 struct User {
-    var userName: String
-    var avatarPic: UIImage
+    let userName: String
+    let avatarPic: UIImage
     
-    var userPhotos: [UIImage]
+    let userPhotos: [UserPhoto]
 }
 
+struct UserPhoto {
+    let photo: UIImage
+    var liked: Bool
+}
 

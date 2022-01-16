@@ -30,7 +30,7 @@ func generateMyGroups() -> [Group] {
     return myGroups
 }
 
-struct Group {
-    var groupName: String
-    var groupPic: UIImage
+struct Group: Equatable {
+    let groupName: String
+    let groupPic: UIImage
 }
