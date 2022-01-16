@@ -64,14 +64,14 @@ func generateMyFriends() -> [User] {
 }
 
 struct User {
-    var userName: String
-    var avatarPic: UIImage
+    let userName: String
+    let avatarPic: UIImage
     
-    var userPhotos: [UserPhoto]
+    let userPhotos: [UserPhoto]
 }
 
 struct UserPhoto {
-    var photo: UIImage
+    let photo: UIImage
     var liked: Bool
 }
 
