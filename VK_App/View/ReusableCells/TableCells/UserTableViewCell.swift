@@ -11,20 +11,10 @@ class UserTableViewCell: UITableViewCell {
 
     @IBOutlet weak var currentAvatarView: AvatarView!
     @IBOutlet weak var userName: UILabel!
-    //@IBOutlet weak var myAvatar: UIImageView!
-    
-//    func configure(user: User) {
-//
-//        configView()
-//    }
+
     
     func configView(user: User) {
-        //self.addSubview(currentAvatarView)
-        
-        //userPic.image = user.avatarPic
-        
-        //self.frame.height = 128.0
-        //self.frame.weight = 128.0
+
         
         userName.text = user.userName
         

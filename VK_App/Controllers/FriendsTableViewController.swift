@@ -10,6 +10,7 @@ import UIKit
 class FriendsTableViewController: UITableViewController {
 
     var myFriends = generateMyFriends()
+    var currentFriend: User? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +22,14 @@ class FriendsTableViewController: UITableViewController {
             forCellReuseIdentifier: "userTableViewCell")
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == "goToFriendsPhotoCollection" else { return }
+        guard let destination = segue.destination as? PhotoCollectionViewController else { return }
+        if let user = currentFriend {
+            destination.user = user
+        }
+        else { return }
+    }
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return myFriends.count
@@ -42,7 +51,7 @@ class FriendsTableViewController: UITableViewController {
         defer{
             self.tableView.deselectRow(at: indexPath, animated: true)
         }
-        var currentFriend = myFriends[indexPath.row]
+        currentFriend = myFriends[indexPath.row]
         performSegue(withIdentifier: "goToFriendsPhotoCollection", sender: nil)
     }
 

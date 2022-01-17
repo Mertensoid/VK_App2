@@ -11,23 +11,37 @@ class UserPhotoCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var userPic: UIImageView!
     @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var likesCount: UILabel!
     
-    @IBAction func likeButtonPressed(_ sender: Any) {
-//        switchButton()
+    @IBAction func likeButtonPressed(_ sender: UIButton) {
+        if sender.imageView?.image == UIImage(systemName: "heart.fill") {
+            sender.setImage(UIImage(systemName: "heart"), for: .normal)
+        } else {
+            sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        }
+        liked = !liked
+        if liked {
+            somePhotoModel?.likesCount += 1
+            likesCount.text = String(somePhotoModel!.likesCount)
+        } else {
+            somePhotoModel?.likesCount -= 1
+            likesCount.text = String(somePhotoModel!.likesCount)
+        }
     }
-    
-//    func switchButton() {
-//        if self.likeButton.imageView?.image == UIImage(systemName: "heart.fill") {
-//            self.likeButton.imageView?.image = UIImage(systemName: "heart")
-//        } else {
-//            self.likeButton.imageView?.image = UIImage(systemName: "heart.fill")
-//        }
-//    }
+
+    var somePhotoModel: UserPhoto? = nil
+    var liked: Bool = false
     
     func configure(userPhoto: UserPhoto) {
         
+        somePhotoModel = userPhoto
+        if let value = somePhotoModel?.liked {
+            liked = value
+        } else { return }
+        
+        
         likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
-        likeButton.setImage(UIImage(systemName: "heart.fill"), for: .highlighted)
+        //likeButton.setImage(UIImage(systemName: "heart.fill"), for: .highlighted)
         
         userPic.image = userPhoto.photo
         if userPhoto.liked {
@@ -35,5 +49,8 @@ class UserPhotoCollectionViewCell: UICollectionViewCell {
         } else {
             likeButton.imageView?.image = UIImage(systemName: "heart")
         }
+        //userPhoto.likesCount = 100
+        likesCount.text = String(userPhoto.likesCount)
+        
     }
 }
