@@ -131,6 +131,7 @@
                     <connections>
                         <segue destination="WFj-Yr-YP4" kind="relationship" relationship="viewControllers" id="ALF-cL-NyX"/>
                         <segue destination="Ytf-h2-9LK" kind="relationship" relationship="viewControllers" id="10G-nj-5Y3"/>
+                        <segue destination="Cro-GX-Pve" kind="relationship" relationship="viewControllers" id="NiF-Sv-TE1"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xdn-DR-IPJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -244,6 +245,25 @@
             </objects>
             <point key="canvasLocation" x="1593" y="471"/>
         </scene>
+        <!--News-->
+        <scene sceneID="SbM-nk-alB">
+            <objects>
+                <tableViewController id="Cro-GX-Pve" customClass="NewsTableViewController" customModule="VK_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="bsP-h2-fsJ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <connections>
+                            <outlet property="dataSource" destination="Cro-GX-Pve" id="wOK-9B-jdU"/>
+                            <outlet property="delegate" destination="Cro-GX-Pve" id="5Yk-P4-6pS"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="News" image="newspaper" catalog="system" id="qck-rg-Hhw"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="COK-vM-ial" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1593" y="1177"/>
+        </scene>
         <!--Find-->
         <scene sceneID="dHR-oD-bey">
             <objects>
@@ -252,11 +272,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <searchBar key="tableFooterView" contentMode="redraw" id="UVc-TI-RXh">
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="UVc-TI-RXh">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="biE-oz-4WU" id="ZXB-hz-fa3"/>
+                            </connections>
                         </searchBar>
+                        <sections/>
                         <connections>
                             <outlet property="dataSource" destination="biE-oz-4WU" id="nAb-gF-SFN"/>
                             <outlet property="delegate" destination="biE-oz-4WU" id="3gc-zL-vXp"/>
@@ -274,6 +298,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="newspaper" catalog="system" width="128" height="111"/>
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="person.3" catalog="system" width="128" height="62"/>
         <systemColor name="systemBackgroundColor">
