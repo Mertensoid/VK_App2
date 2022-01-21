@@ -7,12 +7,14 @@ class NewsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        
         tableView.register(NewsTableHeader.self, forHeaderFooterViewReuseIdentifier: "newsTableHeader")
         tableView.register(UINib(nibName: "NewsTitleTableCell", bundle: nil), forCellReuseIdentifier: "newsTitleTableCell")
         tableView.register(UINib(nibName: "NewsTextTableCell", bundle: nil), forCellReuseIdentifier: "newsTextTableCell")
         tableView.register(UINib(nibName: "NewsPictureTableCell", bundle: nil), forCellReuseIdentifier: "newsPictureTableCell")
         //tableView.clipsToBounds = false
-        tableView.register(UINib(nibName: "NewsTableFooter", bundle: nil), forHeaderFooterViewReuseIdentifier: "newsTableFooter")
+        tableView.register(NewsTableFooter.self, forHeaderFooterViewReuseIdentifier: "newsTableFooter")
     }
 
     // MARK: - Table view data source
@@ -36,11 +38,22 @@ class NewsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         guard let newsFooterView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "newsTableFooter") as? NewsTableFooter
         else { return UIView() }
-        
-        newsFooterView.configure(text: "Возможно, здесь будет рабочий футер, но не сегодня...")
+        newsFooterView.configLikeView(
+            count: 65,
+            image: UIImage(systemName: "heart") ?? UIImage())
+        newsFooterView.configCommentView(
+            count: 145,
+            image: UIImage(systemName: "text.bubble") ?? UIImage())
+        newsFooterView.configRepostView(
+            count: 3,
+            image: UIImage(systemName: "arrowshape.turn.up.right") ?? UIImage())
         return newsFooterView
     }
 
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 40
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return 3
