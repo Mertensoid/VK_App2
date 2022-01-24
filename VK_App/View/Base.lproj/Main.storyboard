@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dDr-Du-djF">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
@@ -8,10 +8,66 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Loading ScreenVC-->
+        <scene sceneID="NKV-pa-GsO">
+            <objects>
+                <viewController id="dDr-Du-djF" customClass="LoadingScreenVC" customModule="VK_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TkS-7B-cyV">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="UYw-jc-AL6">
+                                <rect key="frame" x="159.5" y="435.5" width="95" height="25"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5bf-8B-LJi">
+                                        <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                                        <color key="backgroundColor" systemColor="systemGray3Color"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="25" id="4Ae-xw-tTP"/>
+                                            <constraint firstAttribute="width" constant="25" id="ovX-3O-iNR"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CxC-ul-Axr">
+                                        <rect key="frame" x="35" y="0.0" width="25" height="25"/>
+                                        <color key="backgroundColor" systemColor="systemGray3Color"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="25" id="mHC-ER-HiU"/>
+                                            <constraint firstAttribute="height" constant="25" id="mx5-Tb-SPu"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PPg-kU-udA">
+                                        <rect key="frame" x="70" y="0.0" width="25" height="25"/>
+                                        <color key="backgroundColor" systemColor="systemGray3Color"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="25" id="1o7-TL-4VY"/>
+                                            <constraint firstAttribute="height" constant="25" id="GTI-JV-qgF"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="f3S-Gf-i5t"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="UYw-jc-AL6" firstAttribute="centerY" secondItem="TkS-7B-cyV" secondAttribute="centerY" id="g0T-Dl-yBW"/>
+                            <constraint firstItem="UYw-jc-AL6" firstAttribute="centerX" secondItem="TkS-7B-cyV" secondAttribute="centerX" id="gG3-ub-pW4"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="loadingIndicator1" destination="5bf-8B-LJi" id="eac-HX-3K3"/>
+                        <outlet property="loadingIndicator2" destination="CxC-ul-Axr" id="qW5-Yf-faq"/>
+                        <outlet property="loadingIndicator3" destination="PPg-kU-udA" id="UhO-AG-SCC"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="goToLoginScreen" id="9dJ-Eu-RiB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BWI-4c-mSf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1326.0869565217392" y="93.75"/>
+        </scene>
         <!--Login Screen View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginScreenViewController" customModule="VK_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="BYZ-38-t0r" customClass="LoginScreenViewController" customModule="VK_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -108,6 +164,7 @@
                             <constraint firstItem="9l0-lC-Jbe" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="pQm-ha-ww7"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="QbB-Wh-Els"/>
                     <connections>
                         <outlet property="loginScreenScrollView" destination="9l0-lC-Jbe" id="Yno-9g-ON3"/>
                         <outlet property="passwordTextField" destination="Kd8-kS-ezY" id="OAK-f5-0RU"/>
@@ -303,6 +360,9 @@
         <image name="person.3" catalog="system" width="128" height="62"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray3Color">
+            <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
