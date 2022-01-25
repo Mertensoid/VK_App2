@@ -12,6 +12,9 @@ class UserTableViewCell: UITableViewCell {
     @IBOutlet weak var currentAvatarView: AvatarView!
     @IBOutlet weak var userName: UILabel!
 
+    @IBOutlet weak var currentAvatarShadow: UIView!
+    
+    @IBOutlet weak var currentAvatarPic: UIImageView!
     
     func configView(user: User) {
 
@@ -20,24 +23,59 @@ class UserTableViewCell: UITableViewCell {
         
         currentAvatarView.addSubview(currentAvatarShadow)
         currentAvatarView.addSubview(currentAvatarPic)
+        currentAvatarView.isUserInteractionEnabled = true
+        currentAvatarPic.isUserInteractionEnabled = true
+        currentAvatarShadow.isUserInteractionEnabled = true
         
         currentAvatarShadow.layer.borderColor = UIColor.red.cgColor
-        currentAvatarShadow.layer.borderWidth = 64.0
+        currentAvatarShadow.layer.borderWidth = 60.0
         currentAvatarShadow.layer.cornerRadius = currentAvatarPic.frame.height / 2
         currentAvatarShadow.layer.shadowColor = currentAvatarView.shadowColor.cgColor
         currentAvatarShadow.layer.shadowOffset = currentAvatarView.shadowOffset
         currentAvatarShadow.layer.shadowOpacity = currentAvatarView.shadowOpasity
-        currentAvatarShadow.layer.shadowRadius = 5
+        currentAvatarShadow.layer.shadowRadius = 10
 
         currentAvatarPic.image = user.avatarPic
         currentAvatarPic.layer.cornerRadius = currentAvatarPic.frame.height / 2
         currentAvatarPic.clipsToBounds = true
+        currentAvatarView.layer.cornerRadius = currentAvatarView.frame.height / 2
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        let touch: UITouch = touches.first as! UITouch
+        if (touch.view == currentAvatarPic) {
+            UIView.animate(
+                withDuration: 2,
+                delay: 0,
+                usingSpringWithDamping: 0.3,
+                initialSpringVelocity: 0.4,
+                options: .curveLinear,
+                animations: {self.currentAvatarPic.frame.size = CGSize(width: 150, height: 150)},
+                completion: nil)
+            UIView.animate(
+                withDuration: 2,
+                delay: 0,
+                usingSpringWithDamping: 0.3,
+                initialSpringVelocity: 0.4,
+                options: .curveLinear,
+                animations: {self.currentAvatarShadow.frame.size = CGSize(width: 150, height: 150)},
+                completion: nil)
+            UIView.animate(
+                withDuration: 2,
+                delay: 0,
+                usingSpringWithDamping: 0.3,
+                initialSpringVelocity: 0.4,
+                options: .curveLinear,
+                animations: {self.currentAvatarView.bounds.size = CGSize(width: 150, height: 150)},
+                completion: nil)
+        }
     }
     
     //var currentAvatarView: AvatarView = AvatarView(frame: CGRect(x: 10.0, y: 10.0, width: 128.0, height: 128.0))
     
-    var currentAvatarPic: AvatarPicView = AvatarPicView(frame: CGRect(x: 0, y: 0, width: 128, height: 128))
-    var currentAvatarShadow: AvatarShadowView = AvatarShadowView(frame: CGRect(x: 0, y: 0, width: 128, height: 128))
+//    var currentAvatarPic: AvatarPicView = AvatarPicView(frame: CGRect(x: 0, y: 0, width: 128, height: 128))
+//    var currentAvatarShadow: AvatarShadowView = AvatarShadowView(frame: CGRect(x: 0, y: 0, width: 128, height: 128))
 }
 
 class AvatarView: UIView {
@@ -50,6 +88,7 @@ class AvatarPicView: UIImageView {
     override class var layerClass: AnyClass {
         CALayer.self
     }
+    
     
 }
 

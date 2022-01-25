@@ -82,6 +82,7 @@ class FriendsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         defer{
+            
             self.tableView.deselectRow(at: indexPath, animated: true)
         }
         currentFriend = myFriends[indexPath.row]

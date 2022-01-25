@@ -63,6 +63,8 @@ class UserGroupsTableViewController: UITableViewController {
         let currentGroup = userGroups[indexPath.row]
         cell.configure(group: currentGroup)
         
+        
+        
         return cell
     }
 
