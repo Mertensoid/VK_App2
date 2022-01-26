@@ -13,6 +13,7 @@ class UserPhotoCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var likesCount: UILabel!
     
+    //ДЗ №5
     @IBAction func likeButtonPressed(_ sender: UIButton) {
         if sender.imageView?.image == UIImage(systemName: "heart.fill") {
             sender.setImage(UIImage(systemName: "heart"), for: .normal)

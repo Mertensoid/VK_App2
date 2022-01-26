@@ -22,12 +22,15 @@ class UserGroupsTableViewController: UITableViewController {
             segue.identifier == "addGroup",
             let findGroupController = segue.source as? FindGroupsTableViewController,
             let groupIndexPath = findGroupController.tableView.indexPathForSelectedRow,
+            //ДЗ №5 ----
             !userGroups.contains(findGroupController.allGroups[groupIndexPath.row])
+                // -----
         else { return }
         self.userGroups.append(findGroupController.allGroups[groupIndexPath.row])
         self.tableView.reloadData()
+        
     }
-    
+        
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             userGroups.remove(at: indexPath.row )
