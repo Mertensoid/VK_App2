@@ -74,45 +74,47 @@ class CurrentUserPhotoVC: UIViewController {
     private func didSwipe(_ gesture: UISwipeGestureRecognizer) {
         switch gesture.direction {
         case .right:
-            print("right")
+
+            self.rightImageView.center.x = self.currentImageView.center.x
+            
+            if self.currentPhotoIndex == 0 {
+                self.currentPhotoIndex = self.photos.count-1
+            } else {
+                self.currentPhotoIndex -= 1
+            }
+            self.setNewPhotos()
+            
+            self.currentImageView.bounds.size.height *= 0.8
+            self.currentImageView.bounds.size.width *= 0.8
+            
             UIView.animateKeyframes(
                 withDuration: 0.7,
                 delay: 0,
                 options: [],
                 animations: {
                     UIView.addKeyframe(
-                        withRelativeStartTime: 0,
+                        withRelativeStartTime: 0.5,
                         relativeDuration: 0.5,
                         animations: {
-                            self.currentImageView.bounds.size.height *= 0.8
-                        }
-                    )
-                    UIView.addKeyframe(
-                        withRelativeStartTime: 0,
-                        relativeDuration: 0.5,
-                        animations: {
-                            self.currentImageView.bounds.size.width *= 0.8
+                            self.currentImageView.bounds.size.height /= 0.8
                         }
                     )
                     UIView.addKeyframe(
                         withRelativeStartTime: 0.5,
+                        relativeDuration: 0.5,
+                        animations: {
+                            self.currentImageView.bounds.size.width /= 0.8
+                        }
+                    )
+                    UIView.addKeyframe(
+                        withRelativeStartTime: 0,
                         relativeDuration: 1,
                         animations: {
-                            self.leftImageView.center.x = self.currentImageView.center.x
+                            self.rightImageView.center.x = self.currentImageView.center.x + self.currentImageView.bounds.width
                         }
                     )
                 },
-                completion: {_ in
-                    if self.currentPhotoIndex == 0 {
-                        self.currentPhotoIndex = self.photos.count-1
-                        print(self.currentPhotoIndex)
-                    } else {
-                        self.currentPhotoIndex -= 1
-                        print(self.currentPhotoIndex)
-                    }
-                    self.setNewPhotos()
-                    self.leftImageView.center.x = self.currentImageView.center.x - self.currentImageView.bounds.width
-                })
+                completion: nil)
         
         case .left:
             
@@ -147,10 +149,8 @@ class CurrentUserPhotoVC: UIViewController {
                     switch self.currentPhotoIndex {
                     case self.photos.count-1:
                         self.currentPhotoIndex = 0
-                        print(self.currentPhotoIndex)
                     default:
                         self.currentPhotoIndex += 1
-                        print(self.currentPhotoIndex)
                     }
                     self.setNewPhotos()
                     self.rightImageView.center.x = self.currentImageView.center.x + self.currentImageView.bounds.width
