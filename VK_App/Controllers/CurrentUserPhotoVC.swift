@@ -9,8 +9,6 @@ import UIKit
 
 class CurrentUserPhotoVC: UIViewController {
     @IBOutlet weak var currentImageView: UIImageView!
-    //@IBOutlet weak var leftImageView: UIImageView!
-    //@IBOutlet weak var rightImageView: UIImageView!
     
     var leftImageView = UIImageView()
     var rightImageView = UIImageView()
@@ -57,8 +55,8 @@ class CurrentUserPhotoVC: UIViewController {
         leftImageView.contentMode = .scaleAspectFit
         rightImageView.contentMode = .scaleAspectFit
 
-        currentImageView.addSubview(leftImageView)
-        currentImageView.addSubview(rightImageView)
+        view.addSubview(leftImageView)
+        view.addSubview(rightImageView)
         
         
         currentImageView.isUserInteractionEnabled = true
@@ -77,10 +75,33 @@ class CurrentUserPhotoVC: UIViewController {
         switch gesture.direction {
         case .right:
             print("right")
-            UIView.animate(
-                withDuration: 0.3,
+            UIView.animateKeyframes(
+                withDuration: 0.7,
                 delay: 0,
-                animations: {self.leftImageView.center.x = self.currentImageView.center.x},
+                options: [],
+                animations: {
+                    UIView.addKeyframe(
+                        withRelativeStartTime: 0,
+                        relativeDuration: 0.5,
+                        animations: {
+                            self.currentImageView.bounds.size.height *= 0.8
+                        }
+                    )
+                    UIView.addKeyframe(
+                        withRelativeStartTime: 0,
+                        relativeDuration: 0.5,
+                        animations: {
+                            self.currentImageView.bounds.size.width *= 0.8
+                        }
+                    )
+                    UIView.addKeyframe(
+                        withRelativeStartTime: 0.5,
+                        relativeDuration: 1,
+                        animations: {
+                            self.leftImageView.center.x = self.currentImageView.center.x
+                        }
+                    )
+                },
                 completion: {_ in
                     if self.currentPhotoIndex == 0 {
                         self.currentPhotoIndex = self.photos.count-1
@@ -92,12 +113,36 @@ class CurrentUserPhotoVC: UIViewController {
                     self.setNewPhotos()
                     self.leftImageView.center.x = self.currentImageView.center.x - self.currentImageView.bounds.width
                 })
+        
         case .left:
-            print("left")
-            UIView.animate(
-                withDuration: 0.3,
+            
+            UIView.animateKeyframes(
+                withDuration: 0.7,
                 delay: 0,
-                animations: {self.rightImageView.center.x = self.currentImageView.center.x},
+                options: [],
+                animations: {
+                    UIView.addKeyframe(
+                        withRelativeStartTime: 0,
+                        relativeDuration: 0.5,
+                        animations: {
+                            self.currentImageView.bounds.size.height *= 0.8
+                        }
+                    )
+                    UIView.addKeyframe(
+                        withRelativeStartTime: 0,
+                        relativeDuration: 0.5,
+                        animations: {
+                            self.currentImageView.bounds.size.width *= 0.8
+                        }
+                    )
+                    UIView.addKeyframe(
+                        withRelativeStartTime: 0.5,
+                        relativeDuration: 1,
+                        animations: {
+                            self.rightImageView.center.x = self.currentImageView.center.x
+                        }
+                    )
+                },
                 completion: {_ in
                     switch self.currentPhotoIndex {
                     case self.photos.count-1:
@@ -109,7 +154,8 @@ class CurrentUserPhotoVC: UIViewController {
                     }
                     self.setNewPhotos()
                     self.rightImageView.center.x = self.currentImageView.center.x + self.currentImageView.bounds.width
-            })
+                })
+            
         default:
             return
         }
