@@ -129,7 +129,6 @@
                                                 </buttonConfiguration>
                                                 <connections>
                                                     <action selector="loginButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="u3y-xB-YEK"/>
-                                                    <segue destination="Tlh-a7-NW1" kind="presentation" modalPresentationStyle="fullScreen" id="Vsu-fY-D3A"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -178,7 +177,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="EO7-ei-aX8">
             <objects>
-                <tabBarController id="Tlh-a7-NW1" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabbarVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Tlh-a7-NW1" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="9nT-jc-AHG"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Hg2-hK-cvH">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
