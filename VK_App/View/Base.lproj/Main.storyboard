@@ -220,7 +220,7 @@
         <!--Users-->
         <scene sceneID="nVR-If-8Pp">
             <objects>
-                <navigationController id="WFj-Yr-YP4" sceneMemberID="viewController">
+                <navigationController id="WFj-Yr-YP4" customClass="CustomNavigationController" customModule="VK_App" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Users" image="person" catalog="system" id="i9Q-2p-dUV"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="cyK-XJ-sia">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -320,7 +320,7 @@
         <!--Groups-->
         <scene sceneID="4eB-E3-wFm">
             <objects>
-                <navigationController id="Ytf-h2-9LK" sceneMemberID="viewController">
+                <navigationController id="Ytf-h2-9LK" customClass="CustomNavigationController" customModule="VK_App" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Groups" image="person.3" catalog="system" id="UKO-NY-NkN"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="NVx-zh-8SB">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>

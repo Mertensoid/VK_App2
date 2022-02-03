@@ -18,13 +18,13 @@ class UserGroupsTableViewController: UITableViewController {
 //    }
     
     @IBAction func addGroup(segue: UIStoryboardSegue) {
+        
         guard
             segue.identifier == "addGroup",
             let findGroupController = segue.source as? FindGroupsTableViewController,
             let groupIndexPath = findGroupController.tableView.indexPathForSelectedRow,
-            //ДЗ №5 ----
             !userGroups.contains(findGroupController.allGroups[groupIndexPath.row])
-                // -----
+                
         else { return }
         self.userGroups.append(findGroupController.allGroups[groupIndexPath.row])
         self.tableView.reloadData()

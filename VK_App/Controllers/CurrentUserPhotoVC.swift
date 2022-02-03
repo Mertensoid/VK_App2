@@ -55,6 +55,8 @@ class CurrentUserPhotoVC: UIViewController {
         leftImageView.contentMode = .scaleAspectFit
         rightImageView.contentMode = .scaleAspectFit
 
+        leftImageView.isHidden = true
+        rightImageView.isHidden = true
         view.addSubview(leftImageView)
         view.addSubview(rightImageView)
         
@@ -68,6 +70,16 @@ class CurrentUserPhotoVC: UIViewController {
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(didSwipe(_:)))
         swipeRight.direction = .right
         view.addGestureRecognizer(swipeRight)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        leftImageView.isHidden = false
+        rightImageView.isHidden = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        leftImageView.isHidden = true
+        rightImageView.isHidden = true
     }
     
     @objc

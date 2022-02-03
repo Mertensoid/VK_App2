@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		840B1E5F27A83E41004A1FAD /* CustomSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840B1E5E27A83E41004A1FAD /* CustomSegue.swift */; };
 		840B1E6127AB093F004A1FAD /* Animators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840B1E6027AB093F004A1FAD /* Animators.swift */; };
+		840B1E6527ABBFCE004A1FAD /* NavigationViewAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840B1E6427ABBFCE004A1FAD /* NavigationViewAnimator.swift */; };
+		840B1E6727ABC6A8004A1FAD /* NavigationViewBackwardAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840B1E6627ABC6A8004A1FAD /* NavigationViewBackwardAnimator.swift */; };
+		840B1E6927ABCA97004A1FAD /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840B1E6827ABCA97004A1FAD /* CustomNavigationController.swift */; };
+		840B1E6B27ABE997004A1FAD /* NavigationViewRotationForwardAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840B1E6A27ABE997004A1FAD /* NavigationViewRotationForwardAnimator.swift */; };
+		840B1E6E27ABEA83004A1FAD /* NavigationViewRotationBackwardAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840B1E6D27ABEA83004A1FAD /* NavigationViewRotationBackwardAnimation.swift */; };
+		840B1E7027ABF1EF004A1FAD /* CustomInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840B1E6F27ABF1EF004A1FAD /* CustomInteractiveTransition.swift */; };
 		84118C8D2796F7BE001DEC84 /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84118C8C2796F7BE001DEC84 /* NewsTableViewController.swift */; };
 		84118C8F2796F7F9001DEC84 /* NewsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84118C8E2796F7F9001DEC84 /* NewsModel.swift */; };
 		84118C95279932B6001DEC84 /* NewsTableHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84118C94279932B6001DEC84 /* NewsTableHeader.swift */; };
@@ -44,6 +50,12 @@
 /* Begin PBXFileReference section */
 		840B1E5E27A83E41004A1FAD /* CustomSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegue.swift; sourceTree = "<group>"; };
 		840B1E6027AB093F004A1FAD /* Animators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animators.swift; sourceTree = "<group>"; };
+		840B1E6427ABBFCE004A1FAD /* NavigationViewAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewAnimator.swift; sourceTree = "<group>"; };
+		840B1E6627ABC6A8004A1FAD /* NavigationViewBackwardAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewBackwardAnimator.swift; sourceTree = "<group>"; };
+		840B1E6827ABCA97004A1FAD /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
+		840B1E6A27ABE997004A1FAD /* NavigationViewRotationForwardAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewRotationForwardAnimator.swift; sourceTree = "<group>"; };
+		840B1E6D27ABEA83004A1FAD /* NavigationViewRotationBackwardAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewRotationBackwardAnimation.swift; sourceTree = "<group>"; };
+		840B1E6F27ABF1EF004A1FAD /* CustomInteractiveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInteractiveTransition.swift; sourceTree = "<group>"; };
 		84118C8C2796F7BE001DEC84 /* NewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
 		84118C8E2796F7F9001DEC84 /* NewsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsModel.swift; sourceTree = "<group>"; };
 		84118C94279932B6001DEC84 /* NewsTableHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableHeader.swift; sourceTree = "<group>"; };
@@ -93,9 +105,21 @@
 			isa = PBXGroup;
 			children = (
 				840B1E5E27A83E41004A1FAD /* CustomSegue.swift */,
-				840B1E6027AB093F004A1FAD /* Animators.swift */,
+				840B1E6F27ABF1EF004A1FAD /* CustomInteractiveTransition.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		840B1E6C27ABEA53004A1FAD /* Animators */ = {
+			isa = PBXGroup;
+			children = (
+				840B1E6027AB093F004A1FAD /* Animators.swift */,
+				840B1E6427ABBFCE004A1FAD /* NavigationViewAnimator.swift */,
+				840B1E6627ABC6A8004A1FAD /* NavigationViewBackwardAnimator.swift */,
+				840B1E6A27ABE997004A1FAD /* NavigationViewRotationForwardAnimator.swift */,
+				840B1E6D27ABEA83004A1FAD /* NavigationViewRotationBackwardAnimation.swift */,
+			);
+			path = Animators;
 			sourceTree = "<group>";
 		};
 		840C690A277D963900DE0B6E /* CustomViews */ = {
@@ -164,6 +188,7 @@
 		84478883276F3E4600D3577F /* VK_App */ = {
 			isa = PBXGroup;
 			children = (
+				840B1E6C27ABEA53004A1FAD /* Animators */,
 				840B1E5D27A83E25004A1FAD /* Helpers */,
 				84A5767E27787736004361BE /* Models */,
 				8447889A276F3EE600D3577F /* Controllers */,
@@ -205,6 +230,7 @@
 				84A576782773915F004361BE /* FindGroupsTableViewController.swift */,
 				84118C8C2796F7BE001DEC84 /* NewsTableViewController.swift */,
 				84118CB027A19621001DEC84 /* CurrentUserPhotoVC.swift */,
+				840B1E6827ABCA97004A1FAD /* CustomNavigationController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -333,18 +359,24 @@
 				84A5767527739109004361BE /* PhotoCollectionViewController.swift in Sources */,
 				84118C97279932C9001DEC84 /* NewsTableFooter.swift in Sources */,
 				84A5767927739160004361BE /* FindGroupsTableViewController.swift in Sources */,
+				840B1E6B27ABE997004A1FAD /* NavigationViewRotationForwardAnimator.swift in Sources */,
 				84118C9E2799331F001DEC84 /* NewsPictureTableCell.swift in Sources */,
 				84118CAF279E8BB9001DEC84 /* LoadingScreenVC.swift in Sources */,
 				840B1E6127AB093F004A1FAD /* Animators.swift in Sources */,
 				84A5768D2778A8E3004361BE /* UserTableViewCell.swift in Sources */,
 				84118CB127A19621001DEC84 /* CurrentUserPhotoVC.swift in Sources */,
+				840B1E6927ABCA97004A1FAD /* CustomNavigationController.swift in Sources */,
 				84478889276F3E4600D3577F /* LoginScreenViewController.swift in Sources */,
+				840B1E6527ABBFCE004A1FAD /* NavigationViewAnimator.swift in Sources */,
 				84118C9A279932FD001DEC84 /* NewsTextTableCell.swift in Sources */,
 				84118C8D2796F7BE001DEC84 /* NewsTableViewController.swift in Sources */,
+				840B1E6E27ABEA83004A1FAD /* NavigationViewRotationBackwardAnimation.swift in Sources */,
+				840B1E7027ABF1EF004A1FAD /* CustomInteractiveTransition.swift in Sources */,
 				84478885276F3E4600D3577F /* AppDelegate.swift in Sources */,
 				84A57673277390D8004361BE /* FriendsTableViewController.swift in Sources */,
 				84A5767727739141004361BE /* UserGroupsTableViewController.swift in Sources */,
 				84118C95279932B6001DEC84 /* NewsTableHeader.swift in Sources */,
+				840B1E6727ABC6A8004A1FAD /* NavigationViewBackwardAnimator.swift in Sources */,
 				84A5768427787C42004361BE /* UserModel.swift in Sources */,
 				84A576892778A8BC004361BE /* UserPhotoCollectionViewCell.swift in Sources */,
 				84478887276F3E4600D3577F /* SceneDelegate.swift in Sources */,
