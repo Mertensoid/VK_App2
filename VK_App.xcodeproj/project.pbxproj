@@ -33,6 +33,11 @@
 		8447888C276F3E4600D3577F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8447888A276F3E4600D3577F /* Main.storyboard */; };
 		8447888E276F3E4600D3577F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8447888D276F3E4600D3577F /* Assets.xcassets */; };
 		84478891276F3E4600D3577F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8447888F276F3E4600D3577F /* LaunchScreen.storyboard */; };
+		84843CCB27AF9ACC00469904 /* ManyPicturesTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84843CC927AF9ACC00469904 /* ManyPicturesTableCell.swift */; };
+		84843CCC27AF9ACC00469904 /* ManyPicturesTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84843CCA27AF9ACC00469904 /* ManyPicturesTableCell.xib */; };
+		84843CD127AF9CB200469904 /* NewsPhotoCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84843CCF27AF9CB200469904 /* NewsPhotoCollectionCell.swift */; };
+		84843CD227AF9CB200469904 /* NewsPhotoCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84843CD027AF9CB200469904 /* NewsPhotoCollectionCell.xib */; };
+		84843CD527AFA63800469904 /* CustomCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84843CD427AFA63800469904 /* CustomCollectionLayout.swift */; };
 		84A57673277390D8004361BE /* FriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A57672277390D8004361BE /* FriendsTableViewController.swift */; };
 		84A5767527739109004361BE /* PhotoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A5767427739109004361BE /* PhotoCollectionViewController.swift */; };
 		84A5767727739141004361BE /* UserGroupsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A5767627739141004361BE /* UserGroupsTableViewController.swift */; };
@@ -76,6 +81,11 @@
 		8447888D276F3E4600D3577F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84478890276F3E4600D3577F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		84478892276F3E4600D3577F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84843CC927AF9ACC00469904 /* ManyPicturesTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManyPicturesTableCell.swift; sourceTree = "<group>"; };
+		84843CCA27AF9ACC00469904 /* ManyPicturesTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ManyPicturesTableCell.xib; sourceTree = "<group>"; };
+		84843CCF27AF9CB200469904 /* NewsPhotoCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsPhotoCollectionCell.swift; sourceTree = "<group>"; };
+		84843CD027AF9CB200469904 /* NewsPhotoCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsPhotoCollectionCell.xib; sourceTree = "<group>"; };
+		84843CD427AFA63800469904 /* CustomCollectionLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionLayout.swift; sourceTree = "<group>"; };
 		84A57672277390D8004361BE /* FriendsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewController.swift; sourceTree = "<group>"; };
 		84A5767427739109004361BE /* PhotoCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewController.swift; sourceTree = "<group>"; };
 		84A5767627739141004361BE /* UserGroupsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGroupsTableViewController.swift; sourceTree = "<group>"; };
@@ -125,7 +135,6 @@
 		840C690A277D963900DE0B6E /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
-				84118CAE279E8BB9001DEC84 /* LoadingScreenVC.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -165,6 +174,8 @@
 				84118C99279932FD001DEC84 /* NewsTextTableCell.xib */,
 				84118C9C2799331F001DEC84 /* NewsPictureTableCell.swift */,
 				84118C9D2799331F001DEC84 /* NewsPictureTableCell.xib */,
+				84843CC927AF9ACC00469904 /* ManyPicturesTableCell.swift */,
+				84843CCA27AF9ACC00469904 /* ManyPicturesTableCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -212,6 +223,7 @@
 		84478899276F3EB500D3577F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				84843CD327AFA61000469904 /* CustomCollectionLayouts */,
 				840C690A277D963900DE0B6E /* CustomViews */,
 				84A5767B2778770E004361BE /* ReusableCells */,
 				8447888A276F3E4600D3577F /* Main.storyboard */,
@@ -223,6 +235,7 @@
 		8447889A276F3EE600D3577F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				84118CAE279E8BB9001DEC84 /* LoadingScreenVC.swift */,
 				84478888276F3E4600D3577F /* LoginScreenViewController.swift */,
 				84A57672277390D8004361BE /* FriendsTableViewController.swift */,
 				84A5767427739109004361BE /* PhotoCollectionViewController.swift */,
@@ -233,6 +246,14 @@
 				840B1E6827ABCA97004A1FAD /* CustomNavigationController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		84843CD327AFA61000469904 /* CustomCollectionLayouts */ = {
+			isa = PBXGroup;
+			children = (
+				84843CD427AFA63800469904 /* CustomCollectionLayout.swift */,
+			);
+			path = CustomCollectionLayouts;
 			sourceTree = "<group>";
 		};
 		84A5767B2778770E004361BE /* ReusableCells */ = {
@@ -261,6 +282,8 @@
 			children = (
 				84A576872778A8BC004361BE /* UserPhotoCollectionViewCell.swift */,
 				84A576882778A8BC004361BE /* UserPhotoCollectionViewCell.xib */,
+				84843CCF27AF9CB200469904 /* NewsPhotoCollectionCell.swift */,
+				84843CD027AF9CB200469904 /* NewsPhotoCollectionCell.xib */,
 			);
 			path = CollectionCells;
 			sourceTree = "<group>";
@@ -335,12 +358,14 @@
 			files = (
 				84118C9B279932FD001DEC84 /* NewsTextTableCell.xib in Resources */,
 				84A5768227787785004361BE /* GroupsTableViewCell.xib in Resources */,
+				84843CCC27AF9ACC00469904 /* ManyPicturesTableCell.xib in Resources */,
 				84118C9F2799331F001DEC84 /* NewsPictureTableCell.xib in Resources */,
 				84118CA5279972A9001DEC84 /* NewsTitleTableCell.xib in Resources */,
 				84A5768A2778A8BC004361BE /* UserPhotoCollectionViewCell.xib in Resources */,
 				84478891276F3E4600D3577F /* LaunchScreen.storyboard in Resources */,
 				8447888E276F3E4600D3577F /* Assets.xcassets in Resources */,
 				84A5768E2778A8E3004361BE /* UserTableViewCell.xib in Resources */,
+				84843CD227AF9CB200469904 /* NewsPhotoCollectionCell.xib in Resources */,
 				8447888C276F3E4600D3577F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -356,11 +381,13 @@
 				84A5768127787785004361BE /* GroupsTableViewCell.swift in Sources */,
 				840B1E5F27A83E41004A1FAD /* CustomSegue.swift in Sources */,
 				84A5768627787C9E004361BE /* GroupModel.swift in Sources */,
+				84843CCB27AF9ACC00469904 /* ManyPicturesTableCell.swift in Sources */,
 				84A5767527739109004361BE /* PhotoCollectionViewController.swift in Sources */,
 				84118C97279932C9001DEC84 /* NewsTableFooter.swift in Sources */,
 				84A5767927739160004361BE /* FindGroupsTableViewController.swift in Sources */,
 				840B1E6B27ABE997004A1FAD /* NavigationViewRotationForwardAnimator.swift in Sources */,
 				84118C9E2799331F001DEC84 /* NewsPictureTableCell.swift in Sources */,
+				84843CD127AF9CB200469904 /* NewsPhotoCollectionCell.swift in Sources */,
 				84118CAF279E8BB9001DEC84 /* LoadingScreenVC.swift in Sources */,
 				840B1E6127AB093F004A1FAD /* Animators.swift in Sources */,
 				84A5768D2778A8E3004361BE /* UserTableViewCell.swift in Sources */,
@@ -378,6 +405,7 @@
 				84118C95279932B6001DEC84 /* NewsTableHeader.swift in Sources */,
 				840B1E6727ABC6A8004A1FAD /* NavigationViewBackwardAnimator.swift in Sources */,
 				84A5768427787C42004361BE /* UserModel.swift in Sources */,
+				84843CD527AFA63800469904 /* CustomCollectionLayout.swift in Sources */,
 				84A576892778A8BC004361BE /* UserPhotoCollectionViewCell.swift in Sources */,
 				84478887276F3E4600D3577F /* SceneDelegate.swift in Sources */,
 				84118CA4279972A9001DEC84 /* NewsTitleTableCell.swift in Sources */,
