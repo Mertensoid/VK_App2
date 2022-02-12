@@ -13,7 +13,7 @@ class NewsTableViewController: UITableViewController {
         tableView.register(UINib(nibName: "NewsTitleTableCell", bundle: nil), forCellReuseIdentifier: "newsTitleTableCell")
         tableView.register(UINib(nibName: "NewsTextTableCell", bundle: nil), forCellReuseIdentifier: "newsTextTableCell")
         tableView.register(UINib(nibName: "NewsPictureTableCell", bundle: nil), forCellReuseIdentifier: "newsPictureTableCell")
-        //tableView.clipsToBounds = false
+        tableView.register(UINib(nibName: "ManyPicturesTableCell", bundle: nil), forCellReuseIdentifier: "manyPicturesTableCell")
         tableView.register(NewsTableFooter.self, forHeaderFooterViewReuseIdentifier: "newsTableFooter")
     }
 
@@ -70,10 +70,13 @@ class NewsTableViewController: UITableViewController {
             cell.configure(text: news[indexPath.section].title)
             return cell
         case 1:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "newsPictureTableCell") as? NewsPictureTableCell
+//            guard let cell = tableView.dequeueReusableCell(withIdentifier: "newsPictureTableCell") as? NewsPictureTableCell
+//            else { return UITableViewCell() }
+            
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "manyPicturesTableCell") as? ManyPicturesTableCell
             else { return UITableViewCell() }
 
-            cell.configure(image: news[indexPath.section].picture ?? UIImage())
+            //cell.configure(image: news[indexPath.section].picture ?? UIImage())
             return cell
         case 2:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "newsTextTableCell") as? NewsTextTableCell
@@ -87,50 +90,6 @@ class NewsTableViewController: UITableViewController {
 
     }
     
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
