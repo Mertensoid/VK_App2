@@ -25,10 +25,28 @@
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pY9-g1-wGv" customClass="AvatarView" customModule="VK_App" customModuleProvider="target">
                         <rect key="frame" x="10" y="10" width="128" height="128"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ct8-kg-53e">
+                                <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BMA-7c-2Ab">
+                                <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="ct8-kg-53e" secondAttribute="bottom" id="2nc-tn-I4U"/>
+                            <constraint firstItem="BMA-7c-2Ab" firstAttribute="top" secondItem="pY9-g1-wGv" secondAttribute="top" id="3q4-xH-nbD"/>
                             <constraint firstAttribute="height" constant="128" id="GVD-i4-Tea"/>
+                            <constraint firstAttribute="bottom" secondItem="BMA-7c-2Ab" secondAttribute="bottom" id="HG5-UI-JTV"/>
+                            <constraint firstItem="BMA-7c-2Ab" firstAttribute="leading" secondItem="pY9-g1-wGv" secondAttribute="leading" id="Pob-WJ-ZCI"/>
+                            <constraint firstAttribute="width" secondItem="pY9-g1-wGv" secondAttribute="height" multiplier="1:1" id="b4W-t5-fv8"/>
+                            <constraint firstItem="ct8-kg-53e" firstAttribute="top" secondItem="pY9-g1-wGv" secondAttribute="top" id="bnI-kD-Ma2"/>
+                            <constraint firstAttribute="trailing" secondItem="BMA-7c-2Ab" secondAttribute="trailing" id="fZR-SM-JMW"/>
                             <constraint firstAttribute="width" constant="128" id="hbj-0d-QZn"/>
+                            <constraint firstItem="ct8-kg-53e" firstAttribute="leading" secondItem="pY9-g1-wGv" secondAttribute="leading" id="ivE-rc-HGN"/>
+                            <constraint firstAttribute="trailing" secondItem="ct8-kg-53e" secondAttribute="trailing" id="jBp-oR-sl7"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
@@ -54,10 +72,12 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="currentAvatarPic" destination="BMA-7c-2Ab" id="gPx-WK-Xht"/>
+                <outlet property="currentAvatarShadow" destination="ct8-kg-53e" id="YTN-3C-guh"/>
                 <outlet property="currentAvatarView" destination="pY9-g1-wGv" id="ybM-2O-rC7"/>
                 <outlet property="userName" destination="UzB-MR-Fn3" id="IlC-TG-d2k"/>
             </connections>
-            <point key="canvasLocation" x="342.75362318840581" y="128.57142857142856"/>
+            <point key="canvasLocation" x="342.75362318840581" y="127.90178571428571"/>
         </tableViewCell>
     </objects>
     <resources>
