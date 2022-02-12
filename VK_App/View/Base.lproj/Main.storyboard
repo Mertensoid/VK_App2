@@ -129,7 +129,6 @@
                                                 </buttonConfiguration>
                                                 <connections>
                                                     <action selector="loginButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="u3y-xB-YEK"/>
-                                                    <segue destination="Tlh-a7-NW1" kind="presentation" modalPresentationStyle="fullScreen" id="Vsu-fY-D3A"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -178,7 +177,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="EO7-ei-aX8">
             <objects>
-                <tabBarController id="Tlh-a7-NW1" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabbarVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Tlh-a7-NW1" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="9nT-jc-AHG"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Hg2-hK-cvH">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
@@ -221,7 +220,7 @@
         <!--Users-->
         <scene sceneID="nVR-If-8Pp">
             <objects>
-                <navigationController id="WFj-Yr-YP4" sceneMemberID="viewController">
+                <navigationController id="WFj-Yr-YP4" customClass="CustomNavigationController" customModule="VK_App" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Users" image="person" catalog="system" id="i9Q-2p-dUV"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="cyK-XJ-sia">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -321,7 +320,7 @@
         <!--Groups-->
         <scene sceneID="4eB-E3-wFm">
             <objects>
-                <navigationController id="Ytf-h2-9LK" sceneMemberID="viewController">
+                <navigationController id="Ytf-h2-9LK" customClass="CustomNavigationController" customModule="VK_App" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Groups" image="person.3" catalog="system" id="UKO-NY-NkN"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="NVx-zh-8SB">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>

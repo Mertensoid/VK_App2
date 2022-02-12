@@ -14,10 +14,17 @@ class LoginScreenViewController: UIViewController {
     @IBOutlet weak var loginScreenScrollView: UIScrollView!
     
     @IBAction func loginButtonPressed(_ sender: Any) {
-        if usernameTextField.text == "admin" && passwordTextField.text == "123" {
-            
-        }
+        let vc = UIStoryboard(
+            name: "Main",
+            bundle: nil)
+            .instantiateViewController(withIdentifier:"TabbarVC")
+        vc.transitioningDelegate = self
+        present(
+            vc,
+            animated: true)
     }
+    
+    private let animator = SomeAnimator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +47,7 @@ class LoginScreenViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-
+    
     // Когда клавиатура появляется
     @objc func keyboardWasShown(notification: Notification) {
            
@@ -84,3 +91,15 @@ class LoginScreenViewController: UIViewController {
     }
 }
 
+extension LoginScreenViewController: UIViewControllerTransitioningDelegate {
+    func animationController(
+        forPresented presented: UIViewController,
+        presenting: UIViewController,
+        source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        animator
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        animator
+    }
+}
