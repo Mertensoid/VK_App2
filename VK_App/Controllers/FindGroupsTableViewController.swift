@@ -154,6 +154,30 @@ extension FindGroupsTableViewController: UITextFieldDelegate {
             }
         }
         tableView.reloadData()
+        
+        let sessionConfiguration = URLSessionConfiguration.default
+        let session = URLSession(configuration: sessionConfiguration)
+        
+        let searchGroupsRequestComponents: URLComponents = {
+            var comp = URLComponents()
+            comp.scheme = "https"
+            comp.host = "api.vk.com"
+            comp.path = "/method/groups.search"
+            comp.queryItems = [
+                URLQueryItem(name: "q", value: textField.text),
+                URLQueryItem(name: "count", value: "10"),
+                URLQueryItem(name: "access_token", value: SessionSingleton.instance.token),
+                URLQueryItem(name: "v", value: "5.131"),
+            ]
+            return comp
+        }()
+        
+        let searchGroupsTask = session.dataTask(with: searchGroupsRequestComponents.url!) { (data, response, error) in
+            let json = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
+            print(json)
+        }
+        
+        searchGroupsTask.resume()
     }
 }
 

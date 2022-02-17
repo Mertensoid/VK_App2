@@ -101,7 +101,7 @@ extension VKLoginVC: WKNavigationDelegate {
             SessionSingleton.instance.userId = userID
             
             
-            //performSegue(withIdentifier: "webSegue", sender: nil)
+            performSegue(withIdentifier: "webSegue", sender: nil)
 
             decisionHandler(.cancel)
         }

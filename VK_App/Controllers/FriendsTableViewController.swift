@@ -15,6 +15,9 @@ class FriendsTableViewController: UITableViewController {
     var sortedFriendsChars: [Character] = []
     let alphabet: [Character] = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
     
+    
+    
+    
     func sortFriends(friends: [User]) {
         for currentChar in alphabet {
             var currentCharFriends: [User] = []
@@ -41,6 +44,71 @@ class FriendsTableViewController: UITableViewController {
         
         sortFriends(friends: myFriends)
         print(sortedFriends)
+        
+        let sessionConfiguration = URLSessionConfiguration.default
+        let session = URLSession(configuration: sessionConfiguration)
+        
+        let friendsRequestComponents: URLComponents = {
+            var comp = URLComponents()
+            comp.scheme = "https"
+            comp.host = "api.vk.com"
+            comp.path = "/method/friends.get"
+            comp.queryItems = [
+                URLQueryItem(name: "user_id", value: String(SessionSingleton.instance.userId)),
+                URLQueryItem(name: "order", value: "name"),
+                URLQueryItem(name: "fields", value: "bdate"),
+                URLQueryItem(name: "access_token", value: SessionSingleton.instance.token),
+                URLQueryItem(name: "v", value: "5.131"),
+            ]
+            return comp
+        }()
+        
+        let userPhotoRequestComponents: URLComponents = {
+            var comp = URLComponents()
+            comp.scheme = "https"
+            comp.host = "api.vk.com"
+            comp.path = "/method/photos.getAll"
+            comp.queryItems = [
+                URLQueryItem(name: "owner_id", value: String(SessionSingleton.instance.userId)),
+                URLQueryItem(name: "access_token", value: SessionSingleton.instance.token),
+                URLQueryItem(name: "v", value: "5.131"),
+            ]
+            return comp
+        }()
+        
+        let userGroupsRequestComponents: URLComponents = {
+            var comp = URLComponents()
+            comp.scheme = "https"
+            comp.host = "api.vk.com"
+            comp.path = "/method/groups.get"
+            comp.queryItems = [
+                URLQueryItem(name: "user_id", value: String(SessionSingleton.instance.userId)),
+                URLQueryItem(name: "access_token", value: SessionSingleton.instance.token),
+                URLQueryItem(name: "v", value: "5.131"),
+            ]
+            return comp
+        }()
+        
+        let getFriendsTask = session.dataTask(with: friendsRequestComponents.url!) { (data, response, error) in
+            let json = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
+            print(json)
+        }
+        
+        let getPhotosTask = session.dataTask(with: userPhotoRequestComponents.url!) { (data, response, error) in
+            let json = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
+            print(json)
+        }
+        
+        let getGroupsTask = session.dataTask(with: userGroupsRequestComponents.url!) { (data, response, error) in
+            let json = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
+            print(json)
+        }
+        
+        getFriendsTask.resume()
+        getPhotosTask.resume()
+        getGroupsTask.resume()
+        
+        
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -90,3 +158,4 @@ class FriendsTableViewController: UITableViewController {
     }
 
 }
+
