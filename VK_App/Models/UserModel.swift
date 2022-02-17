@@ -66,7 +66,7 @@ func generateMyFriends() -> [User] {
 struct User {
     let userName: String
     let avatarPic: UIImage
-    
+     
     var userPhotos: [UserPhoto]
 }
 
