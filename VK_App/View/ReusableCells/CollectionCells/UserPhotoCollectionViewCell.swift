@@ -14,6 +14,7 @@ class UserPhotoCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var likesCount: UILabel!
     
     var tempCount:String = ""
+    
     //ДЗ №5
     @IBAction func likeButtonPressed(_ sender: UIButton) {
         if sender.imageView?.image == UIImage(systemName: "heart.fill") {
@@ -21,8 +22,8 @@ class UserPhotoCollectionViewCell: UICollectionViewCell {
         } else {
             sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
         }
-        liked = !liked
-        if liked {
+        likedVar = !likedVar
+        if likedVar {
             somePhotoModel?.likesCount += 1
             tempCount = String(somePhotoModel!.likesCount)
             UIView.transition(
@@ -44,27 +45,27 @@ class UserPhotoCollectionViewCell: UICollectionViewCell {
     }
 
     var somePhotoModel: UserPhoto? = nil
-    var liked: Bool = false
+    var likedVar: Bool = false
     
-    func configure(userPhoto: UserPhoto) {
+    func configure(userPhoto: UIImage, likesCounter: Int, liked: Bool) {
         
-        somePhotoModel = userPhoto
-        if let value = somePhotoModel?.liked {
-            liked = value
+        //somePhotoModel = userPhoto
+        if liked {
+            likedVar = liked
         } else { return }
         
         
         likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
         //likeButton.setImage(UIImage(systemName: "heart.fill"), for: .highlighted)
         
-        userPic.image = userPhoto.photo
-        if userPhoto.liked {
+        userPic.image = userPhoto
+        if liked {
             likeButton.imageView?.image = UIImage(systemName: "heart.fill")
         } else {
             likeButton.imageView?.image = UIImage(systemName: "heart")
         }
         //userPhoto.likesCount = 100
-        likesCount.text = String(userPhoto.likesCount)
+        likesCount.text = String(likesCounter)
         
     }
 }

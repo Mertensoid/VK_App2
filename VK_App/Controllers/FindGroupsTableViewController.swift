@@ -11,7 +11,13 @@ class FindGroupsTableViewController: UITableViewController {
 
     
     var allGroups: [GroupData] = []
-    var sortedGroups: [GroupData] = []
+    var sortedGroups: [GroupData] = [] {
+        didSet {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
     var glassView = UIImageView()
     var textField = UITextField()
     var cancelButton = UIButton()
@@ -48,17 +54,13 @@ class FindGroupsTableViewController: UITableViewController {
         cancelButton.addTarget(self, action: #selector(cancelButtonClicked(_:)), for: .touchUpInside)
         headerView.addSubview(cancelButton)
         
-        
-        
         let urlQI = URLQueryItem(name: "q", value: textField.text)
-        networkService.fetchGroups() { [weak self] result in
+        networkService.searchGroups(urlQI: urlQI) { [weak self] result in
             switch result {
             case .success(let groups):
                 //TODO: Заменить структуру sortedGroups новой структурой данных из JSON
                 self?.allGroups = groups
                 self?.sortedGroups = self!.allGroups
-                print(self?.allGroups)
-                //self?.tableView.reloadData()
             case .failure(let error):
                 print(error)
             }
@@ -166,14 +168,26 @@ extension FindGroupsTableViewController: UITextFieldDelegate {
     @objc
     func textFieldDidChanged(_ textField: UITextField) {
 
-        sortedGroups = []
-        for i in allGroups {
-            let tempString = textField.text
-            if i.groupName.hasPrefix(tempString!) {
-                sortedGroups.append(i)
+        let urlQI = URLQueryItem(name: "q", value: textField.text)
+        networkService.searchGroups(urlQI: urlQI) { [weak self] result in
+            switch result {
+            case .success(let groups):
+                //TODO: Заменить структуру sortedGroups новой структурой данных из JSON
+                self?.allGroups = groups
+                self?.sortedGroups = self!.allGroups
+            case .failure(let error):
+                print(error)
             }
         }
-        tableView.reloadData()
+        
+//        sortedGroups = []
+//        for i in allGroups {
+//            let tempString = textField.text
+//            if i.groupName.hasPrefix(tempString!) {
+//                sortedGroups.append(i)
+//            }
+//        }
+//        tableView.reloadData()
         
         
         

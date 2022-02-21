@@ -16,10 +16,10 @@ class UserTableViewCell: UITableViewCell {
     
     @IBOutlet weak var currentAvatarPic: UIImageView!
     
-    func configView(user: User) {
+    func configView(user: FriendData) {
 
         
-        userName.text = user.userName
+        userName.text = user.surName + " " + user.name
         
         currentAvatarView.addSubview(currentAvatarShadow)
         currentAvatarView.addSubview(currentAvatarPic)
@@ -35,7 +35,28 @@ class UserTableViewCell: UITableViewCell {
         currentAvatarShadow.layer.shadowOpacity = currentAvatarView.shadowOpasity
         currentAvatarShadow.layer.shadowRadius = 10
 
-        currentAvatarPic.image = user.avatarPic
+        let imageUrlString = user.friendPhoto
+        guard let imageUrl:URL = URL(string: imageUrlString) else {
+            return
+        }
+        
+        // Start background thread so that image loading does not make app unresponsive
+        DispatchQueue.global().async { [weak self] in
+            
+            guard let self = self else { return }
+            
+            guard let imageData = try? Data(contentsOf: imageUrl) else {
+                return
+            }
+            
+            // When from a background thread, UI needs to be updated on main_queue
+            DispatchQueue.main.async {
+                let image = UIImage(data: imageData)
+                self.currentAvatarPic.image = image
+            }
+        }
+        
+        //currentAvatarPic.image = user.avatarPic
         currentAvatarPic.layer.cornerRadius = currentAvatarPic.frame.height / 2
         currentAvatarPic.clipsToBounds = true
         currentAvatarView.layer.cornerRadius = currentAvatarView.frame.height / 2
@@ -51,7 +72,7 @@ class UserTableViewCell: UITableViewCell {
                 usingSpringWithDamping: 0.3,
                 initialSpringVelocity: 0.4,
                 options: .curveLinear,
-                animations: {self.currentAvatarPic.frame.size = CGSize(width: 150, height: 150)},
+                animations: {self.currentAvatarPic.frame.size = CGSize(width: 85, height: 85)},
                 completion: nil)
             UIView.animate(
                 withDuration: 2,
@@ -59,7 +80,7 @@ class UserTableViewCell: UITableViewCell {
                 usingSpringWithDamping: 0.3,
                 initialSpringVelocity: 0.4,
                 options: .curveLinear,
-                animations: {self.currentAvatarShadow.frame.size = CGSize(width: 150, height: 150)},
+                animations: {self.currentAvatarShadow.frame.size = CGSize(width: 85, height: 85)},
                 completion: nil)
             UIView.animate(
                 withDuration: 2,
@@ -67,7 +88,7 @@ class UserTableViewCell: UITableViewCell {
                 usingSpringWithDamping: 0.3,
                 initialSpringVelocity: 0.4,
                 options: .curveLinear,
-                animations: {self.currentAvatarView.bounds.size = CGSize(width: 150, height: 150)},
+                animations: {self.currentAvatarView.bounds.size = CGSize(width: 85, height: 85)},
                 completion: nil)
         }
     }

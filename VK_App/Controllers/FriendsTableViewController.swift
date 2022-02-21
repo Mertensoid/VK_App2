@@ -9,20 +9,27 @@ import UIKit
 
 class FriendsTableViewController: UITableViewController {
 
-    var myFriends = generateMyFriends()
-    var currentFriend: User? = nil
-    var sortedFriends: [Character: [User]] = [:]
+    var myFriends = [FriendData]() {
+        didSet {
+            DispatchQueue.main.async {
+                self.sortFriends(friends: self.myFriends)
+                self.tableView.reloadData()
+            }
+        }
+    }
+    var currentFriend: FriendData? = nil
+    var sortedFriends: [Character: [FriendData]] = [:]
     var sortedFriendsChars: [Character] = []
-    let alphabet: [Character] = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+    let alphabet: [Character] = ["А", "Б", "В", "Г", "Д", "Е", "Ё", "Ж", "З", "И", "К", "Л", "М", "О", "П", "Р", "С", "Т", "У", "Ф", "Х", "Ц", "Ч", "Ш", "Щ", "Ы", "Э", "Ю", "Я", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
     private let networkService = NetworkService()
     private var friends: [FriendData] = []
     
     
-    func sortFriends(friends: [User]) {
+    func sortFriends(friends: [FriendData]) {
         for currentChar in alphabet {
-            var currentCharFriends: [User] = []
+            var currentCharFriends: [FriendData] = []
             for i in friends {
-                if i.userName.hasPrefix(String(currentChar)) {
+                if i.surName.hasPrefix(String(currentChar)) {
                     currentCharFriends.append(i)
                 }
             }
@@ -31,6 +38,7 @@ class FriendsTableViewController: UITableViewController {
                 sortedFriendsChars.append(currentChar)
             }
         }
+        print(sortedFriends)
     }
 
     override func viewDidLoad() {
@@ -42,25 +50,26 @@ class FriendsTableViewController: UITableViewController {
                 bundle: nil),
             forCellReuseIdentifier: "userTableViewCell")
         
-        sortFriends(friends: myFriends)
-        print(sortedFriends)
-        
         networkService.fetchFriends() { [weak self] result in
             switch result {
             case .success(let friends):
-                self?.friends = friends
-                print(self?.friends)
+                self?.myFriends = friends
+                //print(self?.myFriends)
             case .failure(let error):
                 print(error)
             }
         }
+        
+        
+        
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == "goToFriendsPhotoCollection" else { return }
         guard let destination = segue.destination as? PhotoCollectionViewController else { return }
         if let user = currentFriend {
-            destination.user = user
+            destination.user = user.friendID
         }
         else { return }
     }

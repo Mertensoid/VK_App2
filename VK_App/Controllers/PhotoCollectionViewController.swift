@@ -11,9 +11,10 @@ import UIKit
 
 class PhotoCollectionViewController: UICollectionViewController {
 
-    var user: User? = nil
+    let networkService = NetworkService()
+    var user: Int = 0
     var currentPhotoIndex: Int = 0
-    var userPhotos: [UIImage] = []
+    var userPhotos: [PhotoData] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +24,15 @@ class PhotoCollectionViewController: UICollectionViewController {
                 nibName: "UserPhotoCollectionViewCell",
                 bundle: nil),
             forCellWithReuseIdentifier: "userPhotoCollectionViewCell")
-
+        
+        networkService.fetchPhotos() { [weak self] result in
+            switch result {
+            case .success(let photos):
+                self?.userPhotos = photos
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 
     func getPhotos(user: User) -> [UIImage] {
@@ -38,13 +47,13 @@ class PhotoCollectionViewController: UICollectionViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == "goToCurrentPhoto" else { return }
         guard let destination = segue.destination as? CurrentUserPhotoVC else { return }
-        destination.photos = userPhotos
+        //destination.photos = userPhotos
         destination.currentPhotoIndex = currentPhotoIndex
     }
     
     // MARK: UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return user?.userPhotos.count ?? 0
+        return userPhotos.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -53,15 +62,36 @@ class PhotoCollectionViewController: UICollectionViewController {
         else {
             return UICollectionViewCell()
         }
-        cell.configure(userPhoto: user?.userPhotos[indexPath.row] ?? UserPhoto(photo: UIImage(), likesCount: 0, liked: false))
+        
+        guard let imageUrlString = userPhotos[indexPath.item].photoSizes.last?.photoURL else { return UICollectionViewCell() }
+        guard let imageUrl:URL = URL(string: imageUrlString) else { return UICollectionViewCell() }
+        
+        // Start background thread so that image loading does not make app unresponsive
+        DispatchQueue.global().async { [weak self] in
+            
+            guard let self = self else { return }
+            
+            guard let imageData = try? Data(contentsOf: imageUrl) else {
+                return
+            }
+            
+            // When from a background thread, UI needs to be updated on main_queue
+            DispatchQueue.main.async {
+                if let image = UIImage(data: imageData){
+                    cell.configure(userPhoto: image, likesCounter: 0, liked: false)
+                }
+                
+            }
+        }
+        //
     
         return cell
     }
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let user = user {
-            userPhotos = getPhotos(user: user)
-        }
+//        if let user = user {
+//            userPhotos = getPhotos(user: user)
+//        }
         currentPhotoIndex = indexPath.item
         performSegue(withIdentifier: "goToCurrentPhoto", sender: nil)
     }
