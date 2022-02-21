@@ -11,8 +11,28 @@ class GroupsTableViewCell: UITableViewCell {
     @IBOutlet weak var groupPic: UIImageView!
     @IBOutlet weak var groupName: UILabel!
     
-    func configure(group: Group) {
-        groupPic.image = group.groupPic
+    func configure(group: GroupData) {
+        let imageUrlString = group.groupPic
+        guard let imageUrl:URL = URL(string: imageUrlString) else {
+            return
+        }
+        
+        // Start background thread so that image loading does not make app unresponsive
+        DispatchQueue.global().async { [weak self] in
+            
+            guard let self = self else { return }
+            
+            guard let imageData = try? Data(contentsOf: imageUrl) else {
+                return
+            }
+            
+            // When from a background thread, UI needs to be updated on main_queue
+            DispatchQueue.main.async {
+                let image = UIImage(data: imageData)
+                self.groupPic.image = image
+            }
+        }
+
         groupName.text = group.groupName
 
         groupPic.isUserInteractionEnabled = true

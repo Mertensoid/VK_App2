@@ -10,11 +10,13 @@ import UIKit
 class FindGroupsTableViewController: UITableViewController {
 
     
-    var allGroups = generateMyGroups()
-    var sortedGroups: [Group] = []
+    var allGroups: [GroupData] = []
+    var sortedGroups: [GroupData] = []
     var glassView = UIImageView()
     var textField = UITextField()
     var cancelButton = UIButton()
+    
+    let networkService = NetworkService()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,12 +48,29 @@ class FindGroupsTableViewController: UITableViewController {
         cancelButton.addTarget(self, action: #selector(cancelButtonClicked(_:)), for: .touchUpInside)
         headerView.addSubview(cancelButton)
         
+        
+        
+        let urlQI = URLQueryItem(name: "q", value: textField.text)
+        networkService.fetchGroups() { [weak self] result in
+            switch result {
+            case .success(let groups):
+                //TODO: Заменить структуру sortedGroups новой структурой данных из JSON
+                self?.allGroups = groups
+                self?.sortedGroups = self!.allGroups
+                print(self?.allGroups)
+                //self?.tableView.reloadData()
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
+        
+        
         tableView.register(
             UINib(
                 nibName: "GroupsTableViewCell",
                 bundle: nil),
             forCellReuseIdentifier: "groupsTableViewCell")
-        sortedGroups = allGroups
     }
     
     // MARK: - Table view data source
@@ -146,6 +165,7 @@ extension FindGroupsTableViewController: UITextFieldDelegate {
     
     @objc
     func textFieldDidChanged(_ textField: UITextField) {
+
         sortedGroups = []
         for i in allGroups {
             let tempString = textField.text
@@ -155,29 +175,8 @@ extension FindGroupsTableViewController: UITextFieldDelegate {
         }
         tableView.reloadData()
         
-        let sessionConfiguration = URLSessionConfiguration.default
-        let session = URLSession(configuration: sessionConfiguration)
         
-        let searchGroupsRequestComponents: URLComponents = {
-            var comp = URLComponents()
-            comp.scheme = "https"
-            comp.host = "api.vk.com"
-            comp.path = "/method/groups.search"
-            comp.queryItems = [
-                URLQueryItem(name: "q", value: textField.text),
-                URLQueryItem(name: "count", value: "10"),
-                URLQueryItem(name: "access_token", value: SessionSingleton.instance.token),
-                URLQueryItem(name: "v", value: "5.131"),
-            ]
-            return comp
-        }()
         
-        let searchGroupsTask = session.dataTask(with: searchGroupsRequestComponents.url!) { (data, response, error) in
-            let json = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
-            print(json)
-        }
-        
-        searchGroupsTask.resume()
     }
 }
 

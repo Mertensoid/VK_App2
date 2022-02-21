@@ -9,7 +9,7 @@ struct FriendData {
     let friendID: Int
     let name: String
     let surName: String
-    let birthDate: String
+    //let birthDate: String
 }
 
 extension FriendData: Codable {
@@ -17,7 +17,7 @@ extension FriendData: Codable {
         case friendID = "id"
         case name = "first_name"
         case surName = "last_name"
-        case birthDate = "bdate"
+        //case birthDate = "bdate"
     }
 }
 

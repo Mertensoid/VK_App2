@@ -10,7 +10,7 @@ import UIKit
 
 class UserGroupsTableViewController: UITableViewController {
 
-    var userGroups = [Group]()
+    var userGroups = [GroupData]()
 //    {
 //        didSet {
 //            self.tableView.reloadData()

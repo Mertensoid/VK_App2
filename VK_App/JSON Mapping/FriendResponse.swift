@@ -6,11 +6,11 @@
 //
 
 struct FriendResponse {
-    let users: [FriendData]
+    let response: FriendItems
 }
 
 extension FriendResponse: Codable {
     enum CodingKeys: String, CodingKey {
-        case users = "items"
+        case response
     }
 }
