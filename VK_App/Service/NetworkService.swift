@@ -33,7 +33,7 @@ class NetworkService {
         comp.host = "api.vk.com"
         comp.path = "/method/photos.getAll"
         comp.queryItems = [
-            URLQueryItem(name: "owner_id", value: String(SessionSingleton.instance.userId)),
+            
             URLQueryItem(name: "access_token", value: SessionSingleton.instance.token),
             URLQueryItem(name: "v", value: "5.131"),
         ]
@@ -87,9 +87,11 @@ class NetworkService {
         getFriendsTask.resume()
     }
     
-    func fetchPhotos(completion: @escaping (Result<[PhotoData], Error>) -> Void) {
+    func fetchPhotos(urlQI: URLQueryItem, completion: @escaping (Result<[PhotoData], Error>) -> Void) {
         
-        guard let url = userPhotoRequestComponents.url else { return }
+        var comp = userPhotoRequestComponents
+        comp.queryItems?.insert(urlQI, at: 0)
+        guard let url = comp.url else { return }
         
         let getPhotosTask = session.dataTask(with: url) { (data, response, error) in
             guard

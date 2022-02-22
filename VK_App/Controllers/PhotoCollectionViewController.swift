@@ -14,18 +14,26 @@ class PhotoCollectionViewController: UICollectionViewController {
     let networkService = NetworkService()
     var user: Int = 0
     var currentPhotoIndex: Int = 0
-    var userPhotos: [PhotoData] = []
+    var userPhotos: [PhotoData] = [] {
+        didSet {
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
- 
+        print(self.user)
         self.collectionView!.register(
             UINib(
                 nibName: "UserPhotoCollectionViewCell",
                 bundle: nil),
             forCellWithReuseIdentifier: "userPhotoCollectionViewCell")
         
-        networkService.fetchPhotos() { [weak self] result in
+        let urlQI = URLQueryItem(name: "owner_id", value: String(self.user))
+        networkService.fetchPhotos(urlQI: urlQI) { [weak self] result in
+            
             switch result {
             case .success(let photos):
                 self?.userPhotos = photos
@@ -63,26 +71,7 @@ class PhotoCollectionViewController: UICollectionViewController {
             return UICollectionViewCell()
         }
         
-        guard let imageUrlString = userPhotos[indexPath.item].photoSizes.last?.photoURL else { return UICollectionViewCell() }
-        guard let imageUrl:URL = URL(string: imageUrlString) else { return UICollectionViewCell() }
-        
-        // Start background thread so that image loading does not make app unresponsive
-        DispatchQueue.global().async { [weak self] in
-            
-            guard let self = self else { return }
-            
-            guard let imageData = try? Data(contentsOf: imageUrl) else {
-                return
-            }
-            
-            // When from a background thread, UI needs to be updated on main_queue
-            DispatchQueue.main.async {
-                if let image = UIImage(data: imageData){
-                    cell.configure(userPhoto: image, likesCounter: 0, liked: false)
-                }
-                
-            }
-        }
+        cell.configure(userPhoto: userPhotos[indexPath.item])
         //
     
         return cell
