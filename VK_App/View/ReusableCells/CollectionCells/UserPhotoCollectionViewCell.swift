@@ -51,7 +51,7 @@ class UserPhotoCollectionViewCell: UICollectionViewCell {
     
     func configure(userPhoto: PhotoData) {
         
-        guard let imageUrlString = userPhoto.photoSizes.first?.photoURL else { return }
+        guard let imageUrlString = userPhoto.photoSizes.last?.photoURL else { return }
         guard let imageUrl:URL = URL(string: imageUrlString) else { return }
         
         // Start background thread so that image loading does not make app unresponsive
@@ -67,6 +67,7 @@ class UserPhotoCollectionViewCell: UICollectionViewCell {
             DispatchQueue.main.async {
                 if let image = UIImage(data: imageData){
                     self.userPic.image = image
+                    self.userPic.contentMode = .scaleAspectFill
                 }
                 
             }
