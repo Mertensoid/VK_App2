@@ -40,7 +40,6 @@ class UserTableViewCell: UITableViewCell {
             return
         }
         
-        // Start background thread so that image loading does not make app unresponsive
         DispatchQueue.global().async { [weak self] in
             
             guard let self = self else { return }
@@ -49,7 +48,6 @@ class UserTableViewCell: UITableViewCell {
                 return
             }
             
-            // When from a background thread, UI needs to be updated on main_queue
             DispatchQueue.main.async {
                 let image = UIImage(data: imageData)
                 self.currentAvatarPic.image = image

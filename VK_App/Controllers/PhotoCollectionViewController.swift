@@ -25,11 +25,7 @@ class PhotoCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print(self.user)
-        self.collectionView!.register(
-            UINib(
-                nibName: "UserPhotoCollectionViewCell",
-                bundle: nil),
-            forCellWithReuseIdentifier: "userPhotoCollectionViewCell")
+        
         
         let urlQI = URLQueryItem(name: "owner_id", value: String(self.user))
         networkService.fetchPhotos(urlQI: urlQI) { [weak self] result in
@@ -41,6 +37,12 @@ class PhotoCollectionViewController: UICollectionViewController {
                 print(error)
             }
         }
+        
+        self.collectionView!.register(
+            UINib(
+                nibName: "UserPhotoCollectionViewCell",
+                bundle: nil),
+            forCellWithReuseIdentifier: "userPhotoCollectionViewCell")
     }
 
     func getPhotos(user: User) -> [UIImage] {

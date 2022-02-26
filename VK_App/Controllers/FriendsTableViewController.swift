@@ -9,7 +9,7 @@ import UIKit
 
 class FriendsTableViewController: UITableViewController {
 
-    var myFriends = [FriendData]() {
+    private var myFriends = [FriendData]() {
         didSet {
             DispatchQueue.main.async {
                 self.sortFriends(friends: self.myFriends)
