@@ -1,15 +1,14 @@
 //
-//  UserArrayData.swift
+//  PhotoResponse.swift
 //  VK_App
 //
 //  Created by admin on 19.02.2022.
 //
 
-struct FriendResponse {
-    let response: FriendItems
+struct PhotoResponse {
+    let response: PhotoItems
 }
-
-extension FriendResponse: Codable {
+extension PhotoResponse: Codable {
     enum CodingKeys: String, CodingKey {
         case response
     }

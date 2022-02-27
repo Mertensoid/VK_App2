@@ -10,12 +10,15 @@ import UIKit
 
 class UserGroupsTableViewController: UITableViewController {
 
-    var userGroups = [Group]()
-//    {
-//        didSet {
-//            self.tableView.reloadData()
-//        }
-//    }
+    let networkService = NetworkService()
+    var userGroups = [GroupData]()
+    {
+        didSet {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
     
     @IBAction func addGroup(segue: UIStoryboardSegue) {
         
@@ -47,13 +50,21 @@ class UserGroupsTableViewController: UITableViewController {
                 nibName: "GroupsTableViewCell",
                 bundle: nil),
             forCellReuseIdentifier: "groupsTableViewCell")
+        
+        networkService.fetchGroups() { [weak self] result in
+            switch result {
+            case .success(let groups):
+                self?.userGroups = groups
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return userGroups.count
     }
-
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard
@@ -62,8 +73,6 @@ class UserGroupsTableViewController: UITableViewController {
         
         let currentGroup = userGroups[indexPath.row]
         cell.configure(group: currentGroup)
-        
-        
         
         return cell
     }

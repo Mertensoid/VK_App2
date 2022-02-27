@@ -9,20 +9,27 @@ import UIKit
 
 class FriendsTableViewController: UITableViewController {
 
-    var myFriends = generateMyFriends()
-    var currentFriend: User? = nil
-    var sortedFriends: [Character: [User]] = [:]
+    private var myFriends = [FriendData]() {
+        didSet {
+            DispatchQueue.main.async {
+                self.sortFriends(friends: self.myFriends)
+                self.tableView.reloadData()
+            }
+        }
+    }
+    var currentFriend: FriendData? = nil
+    var sortedFriends: [Character: [FriendData]] = [:]
     var sortedFriendsChars: [Character] = []
-    let alphabet: [Character] = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+    let alphabet: [Character] = ["А", "Б", "В", "Г", "Д", "Е", "Ё", "Ж", "З", "И", "К", "Л", "М", "О", "П", "Р", "С", "Т", "У", "Ф", "Х", "Ц", "Ч", "Ш", "Щ", "Ы", "Э", "Ю", "Я", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+    private let networkService = NetworkService()
+    private var friends: [FriendData] = []
     
     
-    
-    
-    func sortFriends(friends: [User]) {
+    func sortFriends(friends: [FriendData]) {
         for currentChar in alphabet {
-            var currentCharFriends: [User] = []
+            var currentCharFriends: [FriendData] = []
             for i in friends {
-                if i.userName.hasPrefix(String(currentChar)) {
+                if i.surName.hasPrefix(String(currentChar)) {
                     currentCharFriends.append(i)
                 }
             }
@@ -31,8 +38,9 @@ class FriendsTableViewController: UITableViewController {
                 sortedFriendsChars.append(currentChar)
             }
         }
+        print(sortedFriends)
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -42,80 +50,26 @@ class FriendsTableViewController: UITableViewController {
                 bundle: nil),
             forCellReuseIdentifier: "userTableViewCell")
         
-        sortFriends(friends: myFriends)
-        print(sortedFriends)
-        
-        let sessionConfiguration = URLSessionConfiguration.default
-        let session = URLSession(configuration: sessionConfiguration)
-        
-        let friendsRequestComponents: URLComponents = {
-            var comp = URLComponents()
-            comp.scheme = "https"
-            comp.host = "api.vk.com"
-            comp.path = "/method/friends.get"
-            comp.queryItems = [
-                URLQueryItem(name: "user_id", value: String(SessionSingleton.instance.userId)),
-                URLQueryItem(name: "order", value: "name"),
-                URLQueryItem(name: "fields", value: "bdate"),
-                URLQueryItem(name: "access_token", value: SessionSingleton.instance.token),
-                URLQueryItem(name: "v", value: "5.131"),
-            ]
-            return comp
-        }()
-        
-        let userPhotoRequestComponents: URLComponents = {
-            var comp = URLComponents()
-            comp.scheme = "https"
-            comp.host = "api.vk.com"
-            comp.path = "/method/photos.getAll"
-            comp.queryItems = [
-                URLQueryItem(name: "owner_id", value: String(SessionSingleton.instance.userId)),
-                URLQueryItem(name: "access_token", value: SessionSingleton.instance.token),
-                URLQueryItem(name: "v", value: "5.131"),
-            ]
-            return comp
-        }()
-        
-        let userGroupsRequestComponents: URLComponents = {
-            var comp = URLComponents()
-            comp.scheme = "https"
-            comp.host = "api.vk.com"
-            comp.path = "/method/groups.get"
-            comp.queryItems = [
-                URLQueryItem(name: "user_id", value: String(SessionSingleton.instance.userId)),
-                URLQueryItem(name: "access_token", value: SessionSingleton.instance.token),
-                URLQueryItem(name: "v", value: "5.131"),
-            ]
-            return comp
-        }()
-        
-        let getFriendsTask = session.dataTask(with: friendsRequestComponents.url!) { (data, response, error) in
-            let json = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
-            print(json)
+        networkService.fetchFriends() { [weak self] result in
+            switch result {
+            case .success(let friends):
+                self?.myFriends = friends
+                //print(self?.myFriends)
+            case .failure(let error):
+                print(error)
+            }
         }
         
-        let getPhotosTask = session.dataTask(with: userPhotoRequestComponents.url!) { (data, response, error) in
-            let json = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
-            print(json)
-        }
         
-        let getGroupsTask = session.dataTask(with: userGroupsRequestComponents.url!) { (data, response, error) in
-            let json = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
-            print(json)
-        }
-        
-        getFriendsTask.resume()
-        getPhotosTask.resume()
-        getGroupsTask.resume()
         
         
     }
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == "goToFriendsPhotoCollection" else { return }
         guard let destination = segue.destination as? PhotoCollectionViewController else { return }
         if let user = currentFriend {
-            destination.user = user
+            destination.user = user.friendID
         }
         else { return }
     }
