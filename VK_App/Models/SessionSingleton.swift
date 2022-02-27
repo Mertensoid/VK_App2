@@ -11,7 +11,7 @@ class SessionSingleton {
     var token: String = ""
     var userId: Int = 0
     
-    let instance = SessionSingleton()
+    static let instance = SessionSingleton()
     
     private init() {
         
