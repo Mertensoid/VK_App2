@@ -44,52 +44,40 @@ class UserPhotoCollectionViewCell: UICollectionViewCell {
 //        }
     }
 
-    
-    
     var somePhotoModel: UserPhoto? = nil
     var likedVar: Bool = false
     
     func configure(userPhoto: PhotoData) {
-        
         guard let imageUrlString = userPhoto.photoSizes.last?.photoURL else { return }
         guard let imageUrl:URL = URL(string: imageUrlString) else { return }
-        
-        // Start background thread so that image loading does not make app unresponsive
         DispatchQueue.global().async { [weak self] in
-            
             guard let self = self else { return }
-            
             guard let imageData = try? Data(contentsOf: imageUrl) else {
                 return
             }
-            
-            // When from a background thread, UI needs to be updated on main_queue
             DispatchQueue.main.async {
                 if let image = UIImage(data: imageData){
                     self.userPic.image = image
                     self.userPic.contentMode = .scaleAspectFill
                 }
-                
             }
         }
-        
-        //somePhotoModel = userPhoto
-//        if liked {
-//            likedVar = liked
-//        } else { return }
-//
-//
-//        likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
-        //likeButton.setImage(UIImage(systemName: "heart.fill"), for: .highlighted)
-        
-        //userPic.image = userPhoto
-//        if liked {
-//            likeButton.imageView?.image = UIImage(systemName: "heart.fill")
-//        } else {
-//            likeButton.imageView?.image = UIImage(systemName: "heart")
-//        }
-//        //userPhoto.likesCount = 100
-//        likesCount.text = String(likesCounter)
-        
+    }
+    
+    func configure(userPhoto: RealmPhotos) {
+        let imageUrlString = userPhoto.smallPhoto
+        guard let imageUrl:URL = URL(string: imageUrlString) else { return }
+        DispatchQueue.global().async { [weak self] in
+            guard let self = self else { return }
+            guard let imageData = try? Data(contentsOf: imageUrl) else {
+                return
+            }
+            DispatchQueue.main.async {
+                if let image = UIImage(data: imageData){
+                    self.userPic.image = image
+                    self.userPic.contentMode = .scaleAspectFill
+                }
+            }
+        }
     }
 }

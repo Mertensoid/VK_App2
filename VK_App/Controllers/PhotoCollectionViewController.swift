@@ -6,33 +6,41 @@
 //
 
 import UIKit
-
-//private let reuseIdentifier = "Cell"
+import RealmSwift
 
 class PhotoCollectionViewController: UICollectionViewController {
 
-    let networkService = NetworkService()
+    private let networkService = NetworkService()
+    private var userPhotos: Results<RealmPhotos>?
     var user: Int = 0
-    var currentPhotoIndex: Int = 0
-    var userPhotos: [PhotoData] = [] {
-        didSet {
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
-        }
+    private var currentPhotoIndex: Int = 0
+    
+    func reloadPhotos() {
+        userPhotos = try? RealmService.load(typeOf: RealmPhotos.self).filter(NSPredicate(
+                format: "ownerID == %@",
+                NSNumber(value: user)))
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(self.user)
-        
+        reloadPhotos()
         
         let urlQI = URLQueryItem(name: "owner_id", value: String(self.user))
         networkService.fetchPhotos(urlQI: urlQI) { [weak self] result in
-            
             switch result {
             case .success(let photos):
-                self?.userPhotos = photos
+                let realmPhotos = photos.map {
+                    RealmPhotos(photo: $0)
+                }
+                DispatchQueue.main.async {
+                    do {
+                        try RealmService.save(items: realmPhotos)
+                        self?.reloadPhotos()
+                        self?.collectionView.reloadData()
+                    } catch {
+                        print(error)
+                    }
+                }
             case .failure(let error):
                 print(error)
             }
@@ -45,44 +53,32 @@ class PhotoCollectionViewController: UICollectionViewController {
             forCellWithReuseIdentifier: "userPhotoCollectionViewCell")
     }
 
-    func getPhotos(user: User) -> [UIImage] {
-        let userPhotos = user.userPhotos
-        var photos: [UIImage] = []
-        for i in userPhotos {
-            photos.append(i.photo)
-        }
-        return photos
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == "goToCurrentPhoto" else { return }
         guard let destination = segue.destination as? CurrentUserPhotoVC else { return }
-        //destination.photos = userPhotos
         destination.currentPhotoIndex = currentPhotoIndex
+        if let photos = self.userPhotos {
+            destination.photos = photos
+        }
     }
     
     // MARK: UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return userPhotos.count
+        return userPhotos?.count ?? 0
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard
+            let userPhoto = userPhotos?[indexPath.item],
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "userPhotoCollectionViewCell", for: indexPath) as? UserPhotoCollectionViewCell
         else {
             return UICollectionViewCell()
         }
-        
-        cell.configure(userPhoto: userPhotos[indexPath.item])
-        //
-    
+        cell.configure(userPhoto: userPhoto)
         return cell
     }
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        if let user = user {
-//            userPhotos = getPhotos(user: user)
-//        }
         currentPhotoIndex = indexPath.item
         performSegue(withIdentifier: "goToCurrentPhoto", sender: nil)
     }

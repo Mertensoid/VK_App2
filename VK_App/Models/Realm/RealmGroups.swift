@@ -11,17 +11,16 @@ import RealmSwift
 class RealmGroups: Object {
     @Persisted(primaryKey: true) var groupID: Int = 0
     @Persisted(indexed: true) var groupName: String = ""
-    @Persisted var proupPic: String = ""
+    @Persisted var groupPic: String = ""
 }
 
 extension RealmGroups {
     convenience init(
-        groupID: Int,
         group: GroupData) {
             self.init()
-            self.groupID = groupID
+            self.groupID = group.groupID
             self.groupName = group.groupName
-            self.proupPic = group.groupPic
+            self.groupPic = group.groupPic
         }
 }
 

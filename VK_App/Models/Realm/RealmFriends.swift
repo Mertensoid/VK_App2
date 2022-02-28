@@ -17,10 +17,9 @@ class RealmFriends: Object {
 
 extension RealmFriends {
     convenience init(
-        friendID: Int,
         friend: FriendData) {
             self.init()
-            self.friendID = friendID
+            self.friendID = friend.friendID
             self.name = friend.name
             self.surName = friend.surName
             self.friendPhoto = friend.friendPhoto
