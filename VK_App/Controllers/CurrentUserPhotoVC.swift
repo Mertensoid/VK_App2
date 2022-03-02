@@ -168,7 +168,7 @@ class CurrentUserPhotoVC: UIViewController {
                         }
                     )
                     UIView.addKeyframe(
-                        withRelativeStartTime: 0.5,
+                        withRelativeStartTime: 0.5       ,
                         relativeDuration: 0.5,
                         animations: {
                             self.rightImageView.center.x = self.currentImageView.center.x

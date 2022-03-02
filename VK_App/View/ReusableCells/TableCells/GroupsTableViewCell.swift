@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class GroupsTableViewCell: UITableViewCell {
     @IBOutlet weak var groupPic: UIImageView!
@@ -13,19 +14,7 @@ class GroupsTableViewCell: UITableViewCell {
     
     func configure(group: GroupData) {
         let imageUrlString = group.groupPic
-        guard let imageUrl:URL = URL(string: imageUrlString) else {
-            return
-        }
-        DispatchQueue.global().async { [weak self] in
-            guard let self = self else { return }
-            guard let imageData = try? Data(contentsOf: imageUrl) else {
-                return
-            }
-            DispatchQueue.main.async {
-                let image = UIImage(data: imageData)
-                self.groupPic.image = image
-            }
-        }
+        self.groupPic.kf.setImage(with: URL(string: imageUrlString))
         groupName.text = group.groupName
         groupPic.isUserInteractionEnabled = true
     }

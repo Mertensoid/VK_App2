@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class UserTableViewCell: UITableViewCell {
 
@@ -30,19 +31,7 @@ class UserTableViewCell: UITableViewCell {
         currentAvatarShadow.layer.shadowRadius = 10
 
         let imageUrlString = user.friendPhoto
-        guard let imageUrl:URL = URL(string: imageUrlString) else {
-            return
-        }
-        DispatchQueue.global().async { [weak self] in
-            guard let self = self else { return }
-            guard let imageData = try? Data(contentsOf: imageUrl) else {
-                return
-            }
-            DispatchQueue.main.async {
-                let image = UIImage(data: imageData)
-                self.currentAvatarPic.image = image
-            }
-        }
+        self.currentAvatarPic.kf.setImage(with: URL(string: imageUrlString))
 
         currentAvatarPic.layer.cornerRadius = currentAvatarPic.frame.height / 2
         currentAvatarPic.clipsToBounds = true
@@ -65,19 +54,7 @@ class UserTableViewCell: UITableViewCell {
         currentAvatarShadow.layer.shadowRadius = 10
 
         let imageUrlString = user.friendPhoto
-        guard let imageUrl:URL = URL(string: imageUrlString) else {
-            return
-        }
-        DispatchQueue.global().async { [weak self] in
-            guard let self = self else { return }
-            guard let imageData = try? Data(contentsOf: imageUrl) else {
-                return
-            }
-            DispatchQueue.main.async {
-                let image = UIImage(data: imageData)
-                self.currentAvatarPic.image = image
-            }
-        }
+        self.currentAvatarPic.kf.setImage(with: URL(string: imageUrlString))
 
         currentAvatarPic.layer.cornerRadius = currentAvatarPic.frame.height / 2
         currentAvatarPic.clipsToBounds = true
