@@ -11,6 +11,7 @@ import RealmSwift
 
 class UserGroupsTableViewController: UITableViewController {
 
+    //MARK: - IBOutlet, IBAction
     @IBAction func addGroup(segue: UIStoryboardSegue) {
 //        guard
 //            segue.identifier == "addGroup",
@@ -21,19 +22,13 @@ class UserGroupsTableViewController: UITableViewController {
 //        self.userGroups.append(findGroupController.allGroups[groupIndexPath.row])
         self.tableView.reloadData()
     }
-        
+    
+    //MARK: - Private properties
     private let networkService = NetworkService()
     private var userGroups: Results<RealmGroups>? = try? RealmService.load(typeOf: RealmGroups.self)
+    private var groupsToken: NotificationToken?
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            
-            
-//            userGroups.remove(at: indexPath.row )
-//            tableView.deleteRows(at: [indexPath], with: .fade)
-        }
-    }
-
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -63,8 +58,59 @@ class UserGroupsTableViewController: UITableViewController {
             }
         }
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        groupsToken = userGroups?.observe { [weak self] userGroupsChanges in
+            guard let self = self else { return }
+            switch userGroupsChanges {
+            case .initial:
+                self.tableView.reloadData()
+            case .update(
+                _,
+                deletions: let deletions,
+                insertions: let insertions,
+                modifications: let modifications):
+                self.tableView.beginUpdates()
+                let deleteIndex = deletions.map { IndexPath(
+                    row: $0,
+                    section: 0) }
+                let insertIndex = insertions.map { IndexPath(
+                    row: $0,
+                    section: 0) }
+                let modificationIndex = modifications.map { IndexPath(
+                    row: $0,
+                    section: 0) }
+                self.tableView.deleteRows(
+                    at: deleteIndex,
+                    with: .automatic)
+                self.tableView.insertRows(
+                    at: insertIndex,
+                    with: .automatic)
+                self.tableView.reloadRows(
+                    at: modificationIndex,
+                    with: .automatic)
+                self.tableView.endUpdates()
+            case .error(let error):
+                print(error)
+            }
+                    
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        groupsToken?.invalidate()
+    }
 
     // MARK: - Table view data source
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+//            userGroups.remove(at: indexPath.row )
+//            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return userGroups?.count ?? 0
     }
