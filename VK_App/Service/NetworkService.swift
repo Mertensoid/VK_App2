@@ -41,7 +41,7 @@ class NetworkService {
             else { return }
             do {
                 let friendResponse = try JSONDecoder().decode(
-                    FriendResponse.self,
+                    VKResponse<FriendItems>.self,
                     from: data)
                 completion(.success(friendResponse.response.friends))
             } catch {
@@ -66,7 +66,7 @@ class NetworkService {
             else { return }
             do {
                 let photoResponse = try JSONDecoder().decode(
-                    PhotoResponse.self,
+                    VKResponse<PhotoItems>.self,
                     from: data)
                 completion(.success(photoResponse.response.photos))
             } catch {
@@ -94,7 +94,7 @@ class NetworkService {
             else { return }
             do {
                 let groupResponse = try JSONDecoder().decode(
-                    GroupResponse.self,
+                    VKResponse<GroupItems>.self,
                     from: data)
                 completion(.success(groupResponse.response.groupData))
             } catch {
@@ -126,7 +126,7 @@ class NetworkService {
             else { return }
             do {
                 let groupResponse = try JSONDecoder().decode(
-                    GroupResponse.self,
+                    VKResponse<GroupItems>.self,
                     from: data)
                 completion(.success(groupResponse.response.groupData))
             } catch {
