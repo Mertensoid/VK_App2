@@ -7,41 +7,33 @@
 
 import Foundation
 import UIKit
+import RealmSwift
 
 class UserGroupsTableViewController: UITableViewController {
 
-    let networkService = NetworkService()
-    var userGroups = [GroupData]()
-    {
-        didSet {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
-    }
-    
     @IBAction func addGroup(segue: UIStoryboardSegue) {
-        
-        guard
-            segue.identifier == "addGroup",
-            let findGroupController = segue.source as? FindGroupsTableViewController,
-            let groupIndexPath = findGroupController.tableView.indexPathForSelectedRow,
-            !userGroups.contains(findGroupController.allGroups[groupIndexPath.row])
-                
-        else { return }
-        self.userGroups.append(findGroupController.allGroups[groupIndexPath.row])
+//        guard
+//            segue.identifier == "addGroup",
+//            let findGroupController = segue.source as? FindGroupsTableViewController,
+//            let groupIndexPath = findGroupController.tableView.indexPathForSelectedRow
+//            !userGroups.contains(findGroupController.allGroups[groupIndexPath.row])
+//        else { return }
+//        self.userGroups.append(findGroupController.allGroups[groupIndexPath.row])
         self.tableView.reloadData()
-        
     }
         
+    private let networkService = NetworkService()
+    private var userGroups: Results<RealmGroups>? = try? RealmService.load(typeOf: RealmGroups.self)
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            userGroups.remove(at: indexPath.row )
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            
+//            userGroups.remove(at: indexPath.row )
+//            tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -54,7 +46,18 @@ class UserGroupsTableViewController: UITableViewController {
         networkService.fetchGroups() { [weak self] result in
             switch result {
             case .success(let groups):
-                self?.userGroups = groups
+                let realmGroups = groups.map {
+                    RealmGroups(group: $0)
+                }
+                DispatchQueue.main.async {
+                    do {
+                        try RealmService.save(items: realmGroups)
+                        self?.userGroups = try RealmService.load(typeOf: RealmGroups.self)
+                        self?.tableView.reloadData()
+                    } catch {
+                        print(error)
+                    }
+                }
             case .failure(let error):
                 print(error)
             }
@@ -63,17 +66,15 @@ class UserGroupsTableViewController: UITableViewController {
 
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userGroups.count
+        return userGroups?.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard
+            let currentGroup = userGroups?[indexPath.row],
             let cell = tableView.dequeueReusableCell(withIdentifier: "groupsTableViewCell", for: indexPath) as? GroupsTableViewCell
         else { return UITableViewCell() }
-        
-        let currentGroup = userGroups[indexPath.row]
         cell.configure(group: currentGroup)
-        
         return cell
     }
 

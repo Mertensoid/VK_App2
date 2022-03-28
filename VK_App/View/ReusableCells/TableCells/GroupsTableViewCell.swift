@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class GroupsTableViewCell: UITableViewCell {
     @IBOutlet weak var groupPic: UIImageView!
@@ -13,31 +14,11 @@ class GroupsTableViewCell: UITableViewCell {
     
     func configure(group: GroupData) {
         let imageUrlString = group.groupPic
-        guard let imageUrl:URL = URL(string: imageUrlString) else {
-            return
-        }
-        
-        // Start background thread so that image loading does not make app unresponsive
-        DispatchQueue.global().async { [weak self] in
-            
-            guard let self = self else { return }
-            
-            guard let imageData = try? Data(contentsOf: imageUrl) else {
-                return
-            }
-            
-            // When from a background thread, UI needs to be updated on main_queue
-            DispatchQueue.main.async {
-                let image = UIImage(data: imageData)
-                self.groupPic.image = image
-            }
-        }
-
+        self.groupPic.kf.setImage(with: URL(string: imageUrlString))
         groupName.text = group.groupName
-
         groupPic.isUserInteractionEnabled = true
     }
-    
+     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         let touch: UITouch = touches.first as! UITouch
@@ -52,6 +33,26 @@ class GroupsTableViewCell: UITableViewCell {
                 completion: nil)
         }
     }
+    
+    func configure(group: RealmGroups) {
+        let imageUrlString = group.groupPic
+        guard let imageUrl:URL = URL(string: imageUrlString) else {
+            return
+        }
+        DispatchQueue.global().async { [weak self] in
+            guard let self = self else { return }
+            guard let imageData = try? Data(contentsOf: imageUrl) else {
+                return
+            }
+            DispatchQueue.main.async {
+                let image = UIImage(data: imageData)
+                self.groupPic.image = image
+            }
+        }
+        groupName.text = group.groupName
+        groupPic.isUserInteractionEnabled = true
+    }
+     
 //
 //    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
 //        let tappedImage = tapGestureRecognizer.view as! UIImageView

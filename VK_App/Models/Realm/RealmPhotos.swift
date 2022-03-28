@@ -11,20 +11,23 @@ import RealmSwift
 
 
 class RealmPhotos: Object {
-    @Persisted var photoID: Int = 0
+    @Persisted(primaryKey: true) var photoID: Int = 0
     @Persisted var ownerID: Int = 0
-    @Persisted var photo: String = ""
+    @Persisted var smallPhoto: String = ""
+    @Persisted var bigPhoto: String = ""
 }
 
 extension RealmPhotos {
     convenience init(
-        photoID: Int,
         photo: PhotoData) {
             self.init()
-            self.photoID = photoID
+            self.photoID = photo.photoID
             self.ownerID = photo.ownerID
+            if let photoURLString = photo.photoSizes.first?.photoURL {
+                self.smallPhoto = photoURLString
+            }
             if let photoURLString = photo.photoSizes.last?.photoURL {
-                self.photo = photoURLString
+                self.bigPhoto = photoURLString
             }
         }
 }

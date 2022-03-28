@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RealmSwift
+import Kingfisher
 
 class CurrentUserPhotoVC: UIViewController {
     @IBOutlet weak var currentImageView: UIImageView!
@@ -13,29 +15,44 @@ class CurrentUserPhotoVC: UIViewController {
     var leftImageView = UIImageView()
     var rightImageView = UIImageView()
     
-    var photos: [UIImage] = []
+    var photos: Results<RealmPhotos>?
     var currentPhotoIndex: Int = 0
+    var leftPhotoIndex: Int = 0
+    var rightPhotoIndex: Int = 0
+    //var currentPhoto: String = ""
     
     private var propertyAnimator: UIViewPropertyAnimator!
     
     private var isAnimated = false
     
     private func setNewPhotos() {
-        self.currentImageView.image = photos[currentPhotoIndex]
-
-        if currentPhotoIndex == 0 && currentPhotoIndex != photos.count-1 {
-            leftImageView.image = photos[photos.count-1]
-            rightImageView.image = photos[currentPhotoIndex + 1]
-        } else if currentPhotoIndex != 0 && currentPhotoIndex == photos.count-1 {
-            leftImageView.image = photos[currentPhotoIndex - 1]
-            rightImageView.image = photos[0]
-        } else if photos.count == 0 {
-            leftImageView.image = photos[currentPhotoIndex]
-            rightImageView.image = photos[currentPhotoIndex]
-        } else {
-            leftImageView.image = photos[currentPhotoIndex - 1]
-            rightImageView.image = photos[currentPhotoIndex + 1]
+        
+        if let userPhotos = photos {
+            
+            
+            if currentPhotoIndex == 0 && currentPhotoIndex != userPhotos.count-1 {
+                leftPhotoIndex = userPhotos.count-1
+                rightPhotoIndex = currentPhotoIndex + 1
+            } else if currentPhotoIndex != 0 && currentPhotoIndex == userPhotos.count-1 {
+                leftPhotoIndex = currentPhotoIndex - 1
+                rightPhotoIndex = 0
+            } else if userPhotos.count == 0 {
+                leftPhotoIndex = currentPhotoIndex
+                rightPhotoIndex = currentPhotoIndex
+            } else {
+                leftPhotoIndex = currentPhotoIndex - 1
+                rightPhotoIndex = currentPhotoIndex + 1
+            }
+            
+            let urlString = userPhotos[currentPhotoIndex].bigPhoto
+            let leftUrlString = userPhotos[leftPhotoIndex].bigPhoto
+            let rightUrlString = userPhotos[rightPhotoIndex].bigPhoto
+            
+            self.currentImageView.kf.setImage(with: URL(string: urlString))
+            self.leftImageView.kf.setImage(with: URL(string: leftUrlString))
+            self.rightImageView.kf.setImage(with: URL(string: rightUrlString))
         }
+        else { return }
     }
     
     override func viewDidLoad() {
@@ -88,16 +105,17 @@ class CurrentUserPhotoVC: UIViewController {
         case .right:
 
             self.rightImageView.center.x = self.currentImageView.center.x
-            
-            if self.currentPhotoIndex == 0 {
-                self.currentPhotoIndex = self.photos.count-1
-            } else {
-                self.currentPhotoIndex -= 1
+            if let userPhotos = photos {
+                if self.currentPhotoIndex == 0 {
+                    self.currentPhotoIndex = userPhotos.count-1
+                } else {
+                    self.currentPhotoIndex -= 1
+                }
+                self.setNewPhotos()
             }
-            self.setNewPhotos()
             
-            self.currentImageView.bounds.size.height *= 0.8
-            self.currentImageView.bounds.size.width *= 0.8
+            self.currentImageView.bounds.size.height *= 0.1
+            self.currentImageView.bounds.size.width *= 0.1
             
             UIView.animateKeyframes(
                 withDuration: 0.7,
@@ -108,21 +126,21 @@ class CurrentUserPhotoVC: UIViewController {
                         withRelativeStartTime: 0.5,
                         relativeDuration: 0.5,
                         animations: {
-                            self.currentImageView.bounds.size.height /= 0.8
+                            self.currentImageView.bounds.size.height /= 0.1
                         }
                     )
                     UIView.addKeyframe(
                         withRelativeStartTime: 0.5,
                         relativeDuration: 0.5,
                         animations: {
-                            self.currentImageView.bounds.size.width /= 0.8
+                            self.currentImageView.bounds.size.width /= 0.1
                         }
                     )
                     UIView.addKeyframe(
                         withRelativeStartTime: 0,
                         relativeDuration: 1,
                         animations: {
-                            self.rightImageView.center.x = self.currentImageView.center.x + self.currentImageView.bounds.width
+                            self.rightImageView.center.x = self.rightImageView.center.x + self.rightImageView.bounds.width
                         }
                     )
                 },
@@ -139,33 +157,35 @@ class CurrentUserPhotoVC: UIViewController {
                         withRelativeStartTime: 0,
                         relativeDuration: 0.5,
                         animations: {
-                            self.currentImageView.bounds.size.height *= 0.8
+                            self.currentImageView.bounds.size.height *= 0.5
                         }
                     )
                     UIView.addKeyframe(
                         withRelativeStartTime: 0,
                         relativeDuration: 0.5,
                         animations: {
-                            self.currentImageView.bounds.size.width *= 0.8
+                            self.currentImageView.bounds.size.width *= 0.5
                         }
                     )
                     UIView.addKeyframe(
-                        withRelativeStartTime: 0.5,
-                        relativeDuration: 1,
+                        withRelativeStartTime: 0.5       ,
+                        relativeDuration: 0.5,
                         animations: {
                             self.rightImageView.center.x = self.currentImageView.center.x
                         }
                     )
                 },
                 completion: {_ in
-                    switch self.currentPhotoIndex {
-                    case self.photos.count-1:
-                        self.currentPhotoIndex = 0
-                    default:
-                        self.currentPhotoIndex += 1
+                    if let userPhotos = self.photos {
+                        switch self.currentPhotoIndex {
+                        case userPhotos.count-1:
+                            self.currentPhotoIndex = 0
+                        default:
+                            self.currentPhotoIndex += 1
+                        }
+                        self.setNewPhotos()
+                        self.rightImageView.center.x = self.rightImageView.center.x + self.rightImageView.bounds.width
                     }
-                    self.setNewPhotos()
-                    self.rightImageView.center.x = self.currentImageView.center.x + self.currentImageView.bounds.width
                 })
             
         default:
