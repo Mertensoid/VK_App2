@@ -10,17 +10,23 @@ import RealmSwift
 
 class PhotoCollectionViewController: UICollectionViewController {
 
+    //MARK: - Private properties
     private let networkService = NetworkService()
     private var userPhotos: Results<RealmPhotos>?
-    var user: Int = 0
     private var currentPhotoIndex: Int = 0
+    private var photoToken: NotificationToken?
     
-    func reloadPhotos() {
+    //MARK: - Public properties
+    var user: Int = 0
+    
+    //MARK: - Private methods
+    private func reloadPhotos() {
         userPhotos = try? RealmService.load(typeOf: RealmPhotos.self).filter(NSPredicate(
                 format: "ownerID == %@",
                 NSNumber(value: user)))
     }
     
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         reloadPhotos()
@@ -52,7 +58,50 @@ class PhotoCollectionViewController: UICollectionViewController {
                 bundle: nil),
             forCellWithReuseIdentifier: "userPhotoCollectionViewCell")
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        photoToken = userPhotos?.observe { [weak self] userPhotoChanges in
+            guard let self = self else { return }
+            switch userPhotoChanges {
+            case .initial:
+                self.collectionView.reloadData()
+            case .update(
+                _,
+                deletions: let deletions,
+                insertions: let insertions,
+                modifications: let modifications):
+                self.collectionView.performBatchUpdates {
+                    let deleteIndex = deletions.map { IndexPath(
+                        row: $0,
+                        section: 0) }
+                    let insertIndex = insertions.map { IndexPath(
+                        row: $0,
+                        section: 0) }
+                    let modificationIndex = modifications.map { IndexPath(
+                        row: $0,
+                        section: 0) }
+                    self.collectionView.deleteItems(
+                        at: deleteIndex)
+                    self.collectionView.insertItems(
+                        at: insertIndex)
+                    self.collectionView.reloadItems(
+                        at: modificationIndex)
+                } completion: { _ in
+                    self.collectionView.reloadData()
+                }
+            case .error(let error):
+                print(error)
+            }
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        photoToken?.invalidate()
+    }
 
+    //MARK: - Segue data source
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == "goToCurrentPhoto" else { return }
         guard let destination = segue.destination as? CurrentUserPhotoVC else { return }

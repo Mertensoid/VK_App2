@@ -244,7 +244,7 @@
             </objects>
             <point key="canvasLocation" x="578" y="94"/>
         </scene>
-        <!--Users-->
+        <!--Title-->
         <scene sceneID="dC9-WX-CWn">
             <objects>
                 <tableViewController id="UWr-F0-K5V" customClass="FriendsTableViewController" customModule="VK_App" customModuleProvider="target" sceneMemberID="viewController">
@@ -258,14 +258,26 @@
                             <outlet property="delegate" destination="UWr-F0-K5V" id="boT-TL-es7"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Users" id="t7a-vt-cba"/>
+                    <navigationItem key="navigationItem" title="Title" id="1WS-dp-Ub9">
+                        <barButtonItem key="rightBarButtonItem" title=" " width="20" id="oib-aT-RBY">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="yAD-af-K3y">
+                                <rect key="frame" x="344" y="5" width="50" height="34.5"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system" title=" "/>
+                                <connections>
+                                    <action selector="addFriendWithAlert:" destination="UWr-F0-K5V" eventType="touchUpInside" id="21b-WT-D72"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="DgH-2Z-4Zv" kind="show" identifier="goToFriendsPhotoCollection" id="I2t-u5-5kX"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="70r-SP-JME" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2604" y="-218"/>
+            <point key="canvasLocation" x="2632" y="-218"/>
         </scene>
         <!--Users-->
         <scene sceneID="nVR-If-8Pp">
@@ -443,6 +455,7 @@
         <image name="newspaper" catalog="system" width="128" height="111"/>
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="person.3" catalog="system" width="128" height="62"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

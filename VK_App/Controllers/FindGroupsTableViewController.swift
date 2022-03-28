@@ -9,21 +9,21 @@ import UIKit
 
 class FindGroupsTableViewController: UITableViewController {
 
-    
-    var allGroups: [GroupData] = []
-    var sortedGroups: [GroupData] = [] {
+    //MARK: - Private properties
+    private var allGroups: [GroupData] = []
+    private var sortedGroups: [GroupData] = [] {
         didSet {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }
     }
-    var glassView = UIImageView()
-    var textField = UITextField()
-    var cancelButton = UIButton()
+    private var glassView = UIImageView()
+    private var textField = UITextField()
+    private var cancelButton = UIButton()
+    private let networkService = NetworkService()
     
-    let networkService = NetworkService()
-    
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -65,9 +65,7 @@ class FindGroupsTableViewController: UITableViewController {
                 print(error)
             }
         }
-        
-        
-        
+
         tableView.register(
             UINib(
                 nibName: "GroupsTableViewCell",
@@ -79,7 +77,6 @@ class FindGroupsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sortedGroups.count
     }
-
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard

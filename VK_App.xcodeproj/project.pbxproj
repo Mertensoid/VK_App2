@@ -32,6 +32,7 @@
 		842B744F27CB4EAB00D8F0E2 /* RealmFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842B744E27CB4EAB00D8F0E2 /* RealmFriends.swift */; };
 		842B745127CB4FF000D8F0E2 /* RealmGroups.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842B745027CB4FF000D8F0E2 /* RealmGroups.swift */; };
 		842B745327CB501000D8F0E2 /* RealmPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842B745227CB501000D8F0E2 /* RealmPhotos.swift */; };
+		842B745527CF2CAA00D8F0E2 /* VKResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842B745427CF2CAA00D8F0E2 /* VKResponse.swift */; };
 		84478885276F3E4600D3577F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84478884276F3E4600D3577F /* AppDelegate.swift */; };
 		84478887276F3E4600D3577F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84478886276F3E4600D3577F /* SceneDelegate.swift */; };
 		84478889276F3E4600D3577F /* LoginScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84478888276F3E4600D3577F /* LoginScreenViewController.swift */; };
@@ -96,6 +97,7 @@
 		842B744E27CB4EAB00D8F0E2 /* RealmFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmFriends.swift; sourceTree = "<group>"; };
 		842B745027CB4FF000D8F0E2 /* RealmGroups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmGroups.swift; sourceTree = "<group>"; };
 		842B745227CB501000D8F0E2 /* RealmPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmPhotos.swift; sourceTree = "<group>"; };
+		842B745427CF2CAA00D8F0E2 /* VKResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKResponse.swift; sourceTree = "<group>"; };
 		84478881276F3E4600D3577F /* VK_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VK_App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84478884276F3E4600D3577F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84478886276F3E4600D3577F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -376,6 +378,7 @@
 				84DBCE6327C417250085D92C /* PhotoItems.swift */,
 				84DBCE5927C142280085D92C /* PhotoData.swift */,
 				84DBCE5B27C143B50085D92C /* PhotoSize.swift */,
+				842B745427CF2CAA00D8F0E2 /* VKResponse.swift */,
 			);
 			path = "JSON Mapping";
 			sourceTree = "<group>";
@@ -527,6 +530,7 @@
 				84A5768627787C9E004361BE /* GroupModel.swift in Sources */,
 				842B744B27CB4BE800D8F0E2 /* RealmService.swift in Sources */,
 				84843CCB27AF9ACC00469904 /* ManyPicturesTableCell.swift in Sources */,
+				842B745527CF2CAA00D8F0E2 /* VKResponse.swift in Sources */,
 				84DBCE5A27C142280085D92C /* PhotoData.swift in Sources */,
 				84A5767527739109004361BE /* PhotoCollectionViewController.swift in Sources */,
 				84118C97279932C9001DEC84 /* NewsTableFooter.swift in Sources */,
