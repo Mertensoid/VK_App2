@@ -4,11 +4,10 @@ import UIKit
 
 class NewsTableViewController: UITableViewController {
 
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
-        
         tableView.register(NewsTableHeader.self, forHeaderFooterViewReuseIdentifier: "newsTableHeader")
         tableView.register(UINib(nibName: "NewsTitleTableCell", bundle: nil), forCellReuseIdentifier: "newsTitleTableCell")
         tableView.register(UINib(nibName: "NewsTextTableCell", bundle: nil), forCellReuseIdentifier: "newsTextTableCell")
@@ -18,7 +17,6 @@ class NewsTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         return news.count
     }
@@ -55,7 +53,6 @@ class NewsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return 3
     }
 
@@ -70,13 +67,9 @@ class NewsTableViewController: UITableViewController {
             cell.configure(text: news[indexPath.section].title)
             return cell
         case 1:
-//            guard let cell = tableView.dequeueReusableCell(withIdentifier: "newsPictureTableCell") as? NewsPictureTableCell
-//            else { return UITableViewCell() }
-            
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "manyPicturesTableCell") as? ManyPicturesTableCell
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "newsPictureTableCell") as? NewsPictureTableCell
             else { return UITableViewCell() }
-
-            //cell.configure(image: news[indexPath.section].picture ?? UIImage())
+            cell.configure(image: news[indexPath.section].picture ?? UIImage())
             return cell
         case 2:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "newsTextTableCell") as? NewsTextTableCell
