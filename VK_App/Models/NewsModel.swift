@@ -18,7 +18,7 @@ struct NewsPost {
     var newsText: String = ""
 }
 
-var news: [NewsPost] = [
+var newsModel: [NewsPost] = [
     NewsPost(title: "Голикова объявила о сокращении срока карантина по коронавирусу до семи дней",
              author: "Голикова",
              authorPicture: UIImage(named: "essentials-23"),

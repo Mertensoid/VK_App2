@@ -8,8 +8,6 @@
 import Foundation
 import UIKit
 
-
-
 func generateMyGroups() -> [Group] {
     var myGroups: [Group] = []
     myGroups.append(Group(

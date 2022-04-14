@@ -6,12 +6,13 @@
 //
 
 import UIKit
+import Kingfisher
 
 class NewsPictureTableCell: UITableViewCell {
 
     @IBOutlet weak var newsImage: UIImageView!
     
-    func configure(image: UIImage) {
-        newsImage.image = image
+    func configure(stringURL: String) {
+        newsImage.kf.setImage(with: URL(string: stringURL))
     }
 }

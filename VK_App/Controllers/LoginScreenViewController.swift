@@ -25,9 +25,11 @@ class LoginScreenViewController: UIViewController {
     }
     
     private let animator = SomeAnimator()
+    private let networkService = NetworkService()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         loginScreenScrollView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
     }
 
