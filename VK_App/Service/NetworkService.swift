@@ -51,6 +51,37 @@ class NetworkService {
         getFriendsTask.resume()
     }
     
+    func searchUserByID(userID: Int, completion: @escaping (Result<[FriendData], Error>) -> Void) {
+        DispatchQueue.global().async {
+            var friendsRequestComponents = self.requestComponents
+            friendsRequestComponents.path = "/method/users.get"
+            friendsRequestComponents.queryItems?.append(
+                contentsOf: [
+                    URLQueryItem(name: "user_ids", value: String(userID)),
+                    URLQueryItem(name: "fields", value: "photo_100")
+                ]
+            )
+            guard let url = friendsRequestComponents.url else { return }
+            let getFriendsTask = self.session.dataTask(with: url) { (data, response, error) in
+                guard
+                    let _ = response as? HTTPURLResponse,
+                    error == nil,
+                    let data = data
+                else { return }
+                do {
+                    let friendResponse = try JSONDecoder().decode(
+                        VKResponse<FriendItems>.self,
+                        from: data)
+                    completion(.success(friendResponse.response.friends))
+                } catch {
+                    completion(.failure(error))
+                }
+            }
+            getFriendsTask.resume()
+        }
+        
+    }
+    
     func fetchPhotos(urlQI: URLQueryItem, completion: @escaping (Result<[PhotoData], Error>) -> Void) {
         var photosRequestComponents = requestComponents
         photosRequestComponents.path = "/method/photos.getAll"
@@ -104,6 +135,37 @@ class NetworkService {
         getGroupsTask.resume()
     }
     
+    func searchGroupByID(id: Int, completion: @escaping (Result<[GroupData], Error>) -> Void) {
+        var groupsRequestComponents = requestComponents
+        groupsRequestComponents.path = "/method/groups.getById"
+        
+        let stringID = String(id)
+        groupsRequestComponents.queryItems?.append(
+            contentsOf: [
+                URLQueryItem(name: "group_ids", value: stringID)
+            ]
+        )
+        
+        guard let url = groupsRequestComponents.url else { return }
+        print(url)
+        let task = session.dataTask(with: url) { (data, response, error) in
+            guard
+                let _ = response as? HTTPURLResponse,
+                error == nil,
+                let data = data
+            else { return }
+            do {
+                let groupResponse = try JSONDecoder().decode(
+                    VKResponse<[GroupData]>.self,
+                    from: data)
+                completion(.success(groupResponse.response))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+        task.resume()
+    }
+    
     func searchGroups(urlQI: URLQueryItem, completion: @escaping (Result<[GroupData], Error>) -> Void) {
         var groupsRequestComponents = requestComponents
         groupsRequestComponents.path = "/method/groups.search"
@@ -135,4 +197,64 @@ class NetworkService {
         }
         task.resume()
     }
+    
+    func fetchNews(completion: @escaping (Result<[NewsData], Error>) -> Void) {
+        DispatchQueue.global().async {
+            var newsRequestComponents = self.requestComponents
+            newsRequestComponents.path = "/method/newsfeed.get"
+            newsRequestComponents.queryItems?.append(contentsOf: [
+                URLQueryItem(name: "count", value: "50"),
+                URLQueryItem(name: "filters", value: "post")
+            ])
+            
+            guard let url = newsRequestComponents.url else { return }
+            let getNewsTask = self.session.dataTask(with: url) { (data, response, error) in
+                guard
+                    let _ = response as? HTTPURLResponse,
+                    error == nil,
+                    let data = data
+                else { return }
+                print(data)
+                do {
+                    let newsResponse = try JSONDecoder().decode(
+                        VKResponse<NewsItems>.self,
+                        from: data)
+                    print(newsResponse)
+                    completion(.success(newsResponse.response.items))
+                } catch {
+                    completion(.failure(error))
+                }
+            }
+            getNewsTask.resume()
+        }
+    }
+    
+//    func fetchPhotoNews(completion: @escaping (Result<[NewsData], Error>) -> Void) {
+//        var newsRequestComponents = requestComponents
+//        newsRequestComponents.path = "/method/newsfeed.get"
+//        newsRequestComponents.queryItems?.append(contentsOf: [
+//            URLQueryItem(name: "count", value: "50"),
+//            URLQueryItem(name: "filters", value: "photo")
+//        ])
+//
+//        guard let url = newsRequestComponents.url else { return }
+//        let getNewsTask = session.dataTask(with: url) { (data, response, error) in
+//            guard
+//                let _ = response as? HTTPURLResponse,
+//                error == nil,
+//                let data = data
+//            else { return }
+//            print(data)
+//            do {
+//                let newsResponse = try JSONDecoder().decode(
+//                    VKResponse<NewsItems>.self,
+//                    from: data)
+//                print(newsResponse)
+//                completion(.success(newsResponse.response.items))
+//            } catch {
+//                completion(.failure(error))
+//            }
+//        }
+//        getNewsTask.resume()
+//    }
 }
