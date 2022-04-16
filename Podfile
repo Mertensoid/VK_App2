@@ -9,5 +9,6 @@ target 'VK_App' do
   pod 'Alamofire', '~> 5.5'
   pod 'RealmSwift', '~>10'
   pod 'Kingfisher'
+  pod 'PromiseKit', "~> 6.8"
 
 end

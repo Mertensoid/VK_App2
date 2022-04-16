@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import RealmSwift
+import PromiseKit
 
 class UserGroupsTableViewController: UITableViewController {
 
@@ -25,8 +26,10 @@ class UserGroupsTableViewController: UITableViewController {
     
     //MARK: - Private properties
     private let networkService = NetworkService()
+    private let promisesService = PromisesService()
     private var userGroups: Results<RealmGroups>? = try? RealmService.load(typeOf: RealmGroups.self)
     private var groupsToken: NotificationToken?
+    
     
     //MARK: - Lifecycle
     override func viewDidLoad() {
@@ -38,25 +41,36 @@ class UserGroupsTableViewController: UITableViewController {
                 bundle: nil),
             forCellReuseIdentifier: "groupsTableViewCell")
         
-        networkService.fetchGroups() { [weak self] result in
-            switch result {
-            case .success(let groups):
-                let realmGroups = groups.map {
-                    RealmGroups(group: $0)
-                }
-                DispatchQueue.main.async {
-                    do {
-                        try RealmService.save(items: realmGroups)
-                        self?.userGroups = try RealmService.load(typeOf: RealmGroups.self)
-                        self?.tableView.reloadData()
-                    } catch {
-                        print(error)
-                    }
-                }
-            case .failure(let error):
+        promisesService.getURL()
+            .then(on: .global(), promisesService.getData(_:))
+            .then(promisesService.getGroups(_:))
+            .then(promisesService.saveGroups(_:))
+            .done(on: .main) { news in
+                print(news)
+            }.catch { error in
                 print(error)
             }
-        }
+        
+        
+//        networkService.fetchGroups() { [weak self] result in
+//            switch result {
+//            case .success(let groups):
+//                let realmGroups = groups.map {
+//                    RealmGroups(group: $0)
+//                }
+//                DispatchQueue.main.async {
+//                    do {
+//                        try RealmService.save(items: realmGroups)
+//                        self?.userGroups = try RealmService.load(typeOf: RealmGroups.self)
+//                        self?.tableView.reloadData()
+//                    } catch {
+//                        print(error)
+//                    }
+//                }
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
