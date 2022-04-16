@@ -21,6 +21,9 @@ class FriendsTableViewController: UITableViewController {
     private let networkService = NetworkService()
     private var friends: [FriendData] = []
     
+    
+    
+    
     //MARK: - IBOutlet, IBAction
     @IBAction func addFriendWithAlert(_ sender: Any) {
         let alertController = UIAlertController(
@@ -84,6 +87,8 @@ class FriendsTableViewController: UITableViewController {
 //        }
 //        print(sortedFriends)
 //    }
+    
+    
 
     //MARK: - Lifecycle
     override func viewDidLoad() {
@@ -95,24 +100,42 @@ class FriendsTableViewController: UITableViewController {
                 bundle: nil),
             forCellReuseIdentifier: "userTableViewCell")
         
-        networkService.fetchFriends() { [weak self] result in
-            switch result {
-            case .success(let friends):
-                let realmFriends = friends.map { RealmFriends(
-                    friend: $0) }
-                DispatchQueue.main.async {
-                    do {
-                        try RealmService.save(items: realmFriends)
-                        self?.myFriends = try RealmService.load(typeOf: RealmFriends.self)
-                        self?.tableView.reloadData()
-                    } catch {
-                        print(error)
-                    }
-                }
-            case .failure(let error):
-                print(error)
+        let opq = OperationQueue()
+        
+        let loadOperation = LoadFriedsOperation()
+        opq.addOperation(loadOperation)
+        
+        let parseOperation = ParseFriedsOperation()
+        parseOperation.addDependency(loadOperation)
+        opq.addOperation(parseOperation)
+        
+        let saveOperation = SaveFriendsOperation()
+        saveOperation.addDependency(parseOperation)
+        saveOperation.completionBlock = {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
             }
         }
+        opq.addOperation(saveOperation)
+        
+//        networkService.fetchFriends() { [weak self] result in
+//            switch result {
+//            case .success(let friends):
+//                let realmFriends = friends.map { RealmFriends(
+//                    friend: $0) }
+//                DispatchQueue.main.async {
+//                    do {
+//                        try RealmService.save(items: realmFriends)
+//                        self?.myFriends = try RealmService.load(typeOf: RealmFriends.self)
+//                        self?.tableView.reloadData()
+//                    } catch {
+//                        print(error)
+//                    }
+//                }
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
