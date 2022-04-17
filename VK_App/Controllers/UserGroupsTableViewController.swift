@@ -29,11 +29,12 @@ class UserGroupsTableViewController: UITableViewController {
     private let promisesService = PromisesService()
     private var userGroups: Results<RealmGroups>? = try? RealmService.load(typeOf: RealmGroups.self)
     private var groupsToken: NotificationToken?
-    
+    private var photoService: PhotoService?
     
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        photoService = PhotoService(container: tableView)
         
         tableView.register(
             UINib(
@@ -134,7 +135,8 @@ class UserGroupsTableViewController: UITableViewController {
             let currentGroup = userGroups?[indexPath.row],
             let cell = tableView.dequeueReusableCell(withIdentifier: "groupsTableViewCell", for: indexPath) as? GroupsTableViewCell
         else { return UITableViewCell() }
-        cell.configure(group: currentGroup)
+        let image = photoService?.photo(atIndexPath: indexPath, byURL: currentGroup.groupPic)
+        cell.config(groupName: currentGroup.groupName, groupPic: image ?? UIImage())
         return cell
     }
 

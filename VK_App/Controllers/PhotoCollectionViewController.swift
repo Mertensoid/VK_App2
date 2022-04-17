@@ -15,6 +15,7 @@ class PhotoCollectionViewController: UICollectionViewController {
     private var userPhotos: Results<RealmPhotos>?
     private var currentPhotoIndex: Int = 0
     private var photoToken: NotificationToken?
+    private var photoService: PhotoService?
     
     //MARK: - Public properties
     var user: Int = 0
@@ -29,6 +30,7 @@ class PhotoCollectionViewController: UICollectionViewController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        photoService = PhotoService(container: collectionView)
         reloadPhotos()
         
         let urlQI = URLQueryItem(name: "owner_id", value: String(self.user))
@@ -123,7 +125,8 @@ class PhotoCollectionViewController: UICollectionViewController {
         else {
             return UICollectionViewCell()
         }
-        cell.configure(userPhoto: userPhoto)
+        let photo = photoService?.photo(atIndexPath: indexPath, byURL: userPhoto.smallPhoto)
+        cell.config(photo: photo ?? UIImage())
         return cell
     }
 

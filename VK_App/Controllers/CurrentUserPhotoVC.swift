@@ -24,6 +24,7 @@ class CurrentUserPhotoVC: UIViewController {
     private var propertyAnimator: UIViewPropertyAnimator!
     
     private var isAnimated = false
+    private var photoService: PhotoService?
     
     private func setNewPhotos() {
         
@@ -48,15 +49,16 @@ class CurrentUserPhotoVC: UIViewController {
             let leftUrlString = userPhotos[leftPhotoIndex].bigPhoto
             let rightUrlString = userPhotos[rightPhotoIndex].bigPhoto
             
-            self.currentImageView.kf.setImage(with: URL(string: urlString))
-            self.leftImageView.kf.setImage(with: URL(string: leftUrlString))
-            self.rightImageView.kf.setImage(with: URL(string: rightUrlString))
+            self.currentImageView.image = photoService?.photo(byURL: urlString)
+            self.leftImageView.image = photoService?.photo(byURL: leftUrlString)
+            self.rightImageView.image = photoService?.photo(byURL: rightUrlString)
         }
         else { return }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        photoService = PhotoService()
         
         setNewPhotos()
         
@@ -144,7 +146,9 @@ class CurrentUserPhotoVC: UIViewController {
                         }
                     )
                 },
-                completion: nil)
+                completion: {_ in
+                    self.setNewPhotos()
+                })
         
         case .left:
             

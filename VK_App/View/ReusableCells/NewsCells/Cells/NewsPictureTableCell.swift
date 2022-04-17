@@ -15,4 +15,8 @@ class NewsPictureTableCell: UITableViewCell {
     func configure(stringURL: String) {
         newsImage.kf.setImage(with: URL(string: stringURL))
     }
+    
+    func config(photo: UIImage) {
+        self.newsImage.image = photo
+    }
 }

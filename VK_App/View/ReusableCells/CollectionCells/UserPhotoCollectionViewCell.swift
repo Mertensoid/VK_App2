@@ -58,4 +58,9 @@ class UserPhotoCollectionViewCell: UICollectionViewCell {
         self.userPic.kf.setImage(with: URL(string: imageUrlString))
         self.userPic.contentMode = .scaleAspectFill
     }
+    
+    func config(photo: UIImage) {
+        self.userPic.image = photo
+        self.userPic.contentMode = .scaleAspectFill
+    }
 }

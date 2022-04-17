@@ -10,11 +10,11 @@ class NewsTableViewController: UITableViewController {
     private var news: [NewsData] = [] {
         didSet {
             DispatchQueue.main.async {
-                
                 self.tableView.reloadData()
             }
         }
     }
+    private var photoService: PhotoService?
     
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -25,6 +25,7 @@ class NewsTableViewController: UITableViewController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        photoService = PhotoService(container: tableView)
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -178,8 +179,8 @@ class NewsTableViewController: UITableViewController {
                     photoLink = attachment.link?.photo?.photoSizes.first?.photoURL ?? ""
                 }
             }
-            
-            cell.configure(stringURL: photoLink)
+            let photo = photoService?.photo(atIndexPath: indexPath, byURL: photoLink)
+            cell.config(photo: photo ?? UIImage())
             return cell
         
         default:
