@@ -47,7 +47,6 @@ class FriendsTableViewController: UITableViewController {
             alertController,
             animated: true,
             completion: nil)
-        
     }
     
     //MARK: - Private methods

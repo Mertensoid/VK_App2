@@ -51,27 +51,6 @@ class UserGroupsTableViewController: UITableViewController {
             }.catch { error in
                 print(error)
             }
-        
-        
-//        networkService.fetchGroups() { [weak self] result in
-//            switch result {
-//            case .success(let groups):
-//                let realmGroups = groups.map {
-//                    RealmGroups(group: $0)
-//                }
-//                DispatchQueue.main.async {
-//                    do {
-//                        try RealmService.save(items: realmGroups)
-//                        self?.userGroups = try RealmService.load(typeOf: RealmGroups.self)
-//                        self?.tableView.reloadData()
-//                    } catch {
-//                        print(error)
-//                    }
-//                }
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -109,7 +88,6 @@ class UserGroupsTableViewController: UITableViewController {
             case .error(let error):
                 print(error)
             }
-                    
         }
     }
     

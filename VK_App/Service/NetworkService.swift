@@ -199,7 +199,6 @@ class NetworkService {
     }
     
     func fetchNews(completion: @escaping (Result<[NewsData], Error>) -> Void) {
-        DispatchQueue.global().async {
             var newsRequestComponents = self.requestComponents
             newsRequestComponents.path = "/method/newsfeed.get"
             newsRequestComponents.queryItems?.append(contentsOf: [
@@ -226,7 +225,6 @@ class NetworkService {
                 }
             }
             getNewsTask.resume()
-        }
     }
     
 //    func fetchPhotoNews(completion: @escaping (Result<[NewsData], Error>) -> Void) {
