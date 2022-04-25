@@ -9,7 +9,7 @@ import Foundation
 
 struct NewsData {
     let sourceID: Int
-    let date: Int
+    let date: Double
     let text: String?
     let comments: NewsComments
     let likes: NewsLikes

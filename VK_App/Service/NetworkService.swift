@@ -198,33 +198,38 @@ class NetworkService {
         task.resume()
     }
     
-    func fetchNews(completion: @escaping (Result<[NewsData], Error>) -> Void) {
-            var newsRequestComponents = self.requestComponents
-            newsRequestComponents.path = "/method/newsfeed.get"
+    func fetchNews(startFrom: String = "", startTime: Double? = nil, completion: @escaping (Result<NewsItems, Error>) -> Void) {
+        var newsRequestComponents = self.requestComponents
+        newsRequestComponents.path = "/method/newsfeed.get"
+        newsRequestComponents.queryItems?.append(contentsOf: [
+            URLQueryItem(name: "count", value: "20"),
+            URLQueryItem(name: "filters", value: "post"),
+            URLQueryItem(name: "start_from", value: startFrom)
+        ])
+        if let startTime = startTime {
             newsRequestComponents.queryItems?.append(contentsOf: [
-                URLQueryItem(name: "count", value: "50"),
-                URLQueryItem(name: "filters", value: "post")
+                URLQueryItem(name: "start_time", value: String(startTime))
             ])
-            
-            guard let url = newsRequestComponents.url else { return }
-            let getNewsTask = self.session.dataTask(with: url) { (data, response, error) in
-                guard
-                    let _ = response as? HTTPURLResponse,
-                    error == nil,
-                    let data = data
-                else { return }
-                print(data)
-                do {
-                    let newsResponse = try JSONDecoder().decode(
-                        VKResponse<NewsItems>.self,
-                        from: data)
-                    print(newsResponse)
-                    completion(.success(newsResponse.response.items))
-                } catch {
-                    completion(.failure(error))
-                }
+        }
+        guard let url = newsRequestComponents.url else { return }
+        let getNewsTask = self.session.dataTask(with: url) { (data, response, error) in
+            guard
+                let _ = response as? HTTPURLResponse,
+                error == nil,
+                let data = data
+            else { return }
+            print(data)
+            do {
+                let newsResponse = try JSONDecoder().decode(
+                    VKResponse<NewsItems>.self,
+                    from: data)
+                print(newsResponse)
+                completion(.success(newsResponse.response))
+            } catch {
+                completion(.failure(error))
             }
-            getNewsTask.resume()
+        }
+        getNewsTask.resume()
     }
     
 //    func fetchPhotoNews(completion: @escaping (Result<[NewsData], Error>) -> Void) {
