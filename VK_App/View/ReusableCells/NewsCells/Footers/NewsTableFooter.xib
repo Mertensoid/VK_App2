@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="NewsTableFooter" customModule="VK_App" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kul-os-xgh">
+                    <rect key="frame" x="5" y="5" width="90" height="30"/>
+                    <color key="backgroundColor" red="0.69481145070000006" green="0.86078917980000003" blue="0.4833568251" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" image="heart" catalog="system" imagePlacement="trailing" title="12365">
+                        <fontDescription key="titleFontDescription" name="Helvetica" family="Helvetica" pointSize="16"/>
+                    </buttonConfiguration>
+                </button>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rkz-jj-1lc">
+                    <rect key="frame" x="100" y="5" width="93" height="30"/>
+                    <color key="backgroundColor" red="0.69481145070000006" green="0.86078917980000003" blue="0.4833568251" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" image="text.bubble" catalog="system" imagePlacement="trailing" title="12345" subtitle="">
+                        <fontDescription key="titleFontDescription" name="Helvetica" family="Helvetica" pointSize="16"/>
+                    </buttonConfiguration>
+                </button>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gVz-Mt-d8a">
+                    <rect key="frame" x="198" y="5" width="91" height="30"/>
+                    <color key="backgroundColor" red="0.69481145070000006" green="0.86078917980000003" blue="0.4833568251" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" image="arrowshape.turn.up.right" catalog="system" imagePlacement="trailing" title="12345">
+                        <fontDescription key="titleFontDescription" name="Helvetica" family="Helvetica" pointSize="16"/>
+                    </buttonConfiguration>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="gVz-Mt-d8a" secondAttribute="bottom" constant="5" id="1Vb-49-WFh"/>
+                <constraint firstItem="rkz-jj-1lc" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="7kH-Qk-3hO"/>
+                <constraint firstItem="kul-os-xgh" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="5" id="9nI-am-77j"/>
+                <constraint firstItem="kul-os-xgh" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="DvV-gA-BYR"/>
+                <constraint firstItem="rkz-jj-1lc" firstAttribute="leading" secondItem="kul-os-xgh" secondAttribute="trailing" constant="5" id="Gdg-T5-2ph"/>
+                <constraint firstItem="gVz-Mt-d8a" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="LMR-sX-eH6"/>
+                <constraint firstAttribute="bottom" secondItem="kul-os-xgh" secondAttribute="bottom" constant="5" id="a7j-Ej-T2B"/>
+                <constraint firstAttribute="bottom" secondItem="rkz-jj-1lc" secondAttribute="bottom" constant="5" id="ivB-K0-vBg"/>
+                <constraint firstItem="gVz-Mt-d8a" firstAttribute="leading" secondItem="rkz-jj-1lc" secondAttribute="trailing" constant="5" id="vCQ-uZ-4KA"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="commentButton" destination="rkz-jj-1lc" id="AjY-7K-pon"/>
+                <outlet property="likeButton" destination="kul-os-xgh" id="Wmh-rO-Vac"/>
+                <outlet property="repostButton" destination="gVz-Mt-d8a" id="F7L-Cs-yG7"/>
+            </connections>
+            <point key="canvasLocation" x="133" y="81"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="arrowshape.turn.up.right" catalog="system" width="128" height="106"/>
+        <image name="heart" catalog="system" width="128" height="109"/>
+        <image name="text.bubble" catalog="system" width="128" height="110"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

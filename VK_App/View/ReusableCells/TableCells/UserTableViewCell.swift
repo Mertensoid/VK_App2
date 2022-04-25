@@ -15,8 +15,7 @@ class UserTableViewCell: UITableViewCell {
     @IBOutlet weak var currentAvatarShadow: UIView!
     @IBOutlet weak var currentAvatarPic: UIImageView!
     
-    func configView(_ user: FriendData) {
-        userName.text = user.surName + " " + user.name
+    override func prepareForReuse() {
         currentAvatarView.addSubview(currentAvatarShadow)
         currentAvatarView.addSubview(currentAvatarPic)
         currentAvatarView.isUserInteractionEnabled = true
@@ -29,41 +28,31 @@ class UserTableViewCell: UITableViewCell {
         currentAvatarShadow.layer.shadowOffset = currentAvatarView.shadowOffset
         currentAvatarShadow.layer.shadowOpacity = currentAvatarView.shadowOpasity
         currentAvatarShadow.layer.shadowRadius = 10
-
-        let imageUrlString = user.friendPhoto
-        self.currentAvatarPic.kf.setImage(with: URL(string: imageUrlString))
-
         currentAvatarPic.layer.cornerRadius = currentAvatarPic.frame.height / 2
         currentAvatarPic.clipsToBounds = true
         currentAvatarView.layer.cornerRadius = currentAvatarView.frame.height / 2
+    }
+    
+    func configView(_ user: FriendData) {
+        userName.text = user.surName + " " + user.name
+        let imageUrlString = user.friendPhoto
+        self.currentAvatarPic.kf.setImage(with: URL(string: imageUrlString))
     }
     
     func configView(_ user: RealmFriends) {
         userName.text = user.surName + " " + user.name
-        currentAvatarView.addSubview(currentAvatarShadow)
-        currentAvatarView.addSubview(currentAvatarPic)
-        currentAvatarView.isUserInteractionEnabled = true
-        currentAvatarPic.isUserInteractionEnabled = true
-        currentAvatarShadow.isUserInteractionEnabled = true
-        currentAvatarShadow.layer.borderColor = UIColor.red.cgColor
-        currentAvatarShadow.layer.borderWidth = 60.0
-        currentAvatarShadow.layer.cornerRadius = currentAvatarPic.frame.height / 2
-        currentAvatarShadow.layer.shadowColor = currentAvatarView.shadowColor.cgColor
-        currentAvatarShadow.layer.shadowOffset = currentAvatarView.shadowOffset
-        currentAvatarShadow.layer.shadowOpacity = currentAvatarView.shadowOpasity
-        currentAvatarShadow.layer.shadowRadius = 10
-
         let imageUrlString = user.friendPhoto
         self.currentAvatarPic.kf.setImage(with: URL(string: imageUrlString))
-
-        currentAvatarPic.layer.cornerRadius = currentAvatarPic.frame.height / 2
-        currentAvatarPic.clipsToBounds = true
-        currentAvatarView.layer.cornerRadius = currentAvatarView.frame.height / 2
+    }
+    
+    func config(userName: String, userPic: UIImage) {
+        self.userName.text = userName
+        self.currentAvatarPic.image = userPic
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        let touch: UITouch = touches.first as! UITouch
+        guard let touch = touches.first else { return }
         if (touch.view == currentAvatarPic) {
             UIView.animate(
                 withDuration: 2,

@@ -19,6 +19,7 @@ class FriendsTableViewController: UITableViewController {
     private var sortedFriendsChars: [Character] = []
     private let alphabet: [Character] = ["А", "Б", "В", "Г", "Д", "Е", "Ё", "Ж", "З", "И", "К", "Л", "М", "О", "П", "Р", "С", "Т", "У", "Ф", "Х", "Ц", "Ч", "Ш", "Щ", "Ы", "Э", "Ю", "Я", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
     private let networkService = NetworkService()
+    private var photoService: PhotoService?
     private var friends: [FriendData] = []
     
     //MARK: - IBOutlet, IBAction
@@ -46,7 +47,6 @@ class FriendsTableViewController: UITableViewController {
             alertController,
             animated: true,
             completion: nil)
-        
     }
     
     //MARK: - Private methods
@@ -55,8 +55,6 @@ class FriendsTableViewController: UITableViewController {
         friend.name = name
         friend.friendPhoto = "123"
         friend.surName = name + "Surname"
-        
-        //try? RealmService.delete(object: self.myFriends!)
         try? RealmService.save(items: [friend])
     }
  
@@ -84,35 +82,56 @@ class FriendsTableViewController: UITableViewController {
 //        }
 //        print(sortedFriends)
 //    }
+    
+    
 
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        photoService = PhotoService(container: tableView)
+        
         tableView.register(
             UINib(
                 nibName: "UserTableViewCell",
                 bundle: nil),
             forCellReuseIdentifier: "userTableViewCell")
         
-        networkService.fetchFriends() { [weak self] result in
-            switch result {
-            case .success(let friends):
-                let realmFriends = friends.map { RealmFriends(
-                    friend: $0) }
-                DispatchQueue.main.async {
-                    do {
-                        try RealmService.save(items: realmFriends)
-                        self?.myFriends = try RealmService.load(typeOf: RealmFriends.self)
-                        self?.tableView.reloadData()
-                    } catch {
-                        print(error)
-                    }
-                }
-            case .failure(let error):
-                print(error)
+        let opq = OperationQueue()
+        
+        let loadOperation = LoadFriedsOperation()
+        opq.addOperation(loadOperation)
+        
+        let parseOperation = ParseFriedsOperation()
+        parseOperation.addDependency(loadOperation)
+        opq.addOperation(parseOperation)
+        
+        let saveOperation = SaveFriendsOperation()
+        saveOperation.addDependency(parseOperation)
+        saveOperation.completionBlock = {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
             }
         }
+        opq.addOperation(saveOperation)
+        
+//        networkService.fetchFriends() { [weak self] result in
+//            switch result {
+//            case .success(let friends):
+//                let realmFriends = friends.map { RealmFriends(
+//                    friend: $0) }
+//                DispatchQueue.main.async {
+//                    do {
+//                        try RealmService.save(items: realmFriends)
+//                        self?.myFriends = try RealmService.load(typeOf: RealmFriends.self)
+//                        self?.tableView.reloadData()
+//                    } catch {
+//                        print(error)
+//                    }
+//                }
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -187,14 +206,11 @@ class FriendsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard
             let currentFriend = myFriends?[indexPath.row],
-
-            //let currentUser = sortedFriends[sortedFriendsChars[indexPath.section]]?[indexPath.row],
             let cell = tableView.dequeueReusableCell(withIdentifier: "userTableViewCell", for: indexPath) as? UserTableViewCell
         else { return UITableViewCell() }
-        
-        cell.configView(currentFriend)
-        //cell.configView(user: currentUser)
-        
+        let userName = currentFriend.surName + " " + currentFriend.name
+        let userPic = photoService?.photo(atIndexPath: indexPath, byURL: currentFriend.friendPhoto) ?? UIImage()
+        cell.config(userName: userName, userPic: userPic)
         return cell
     }
 
@@ -205,7 +221,6 @@ class FriendsTableViewController: UITableViewController {
         if let userID = myFriends?[indexPath.row].friendID {
             currentFriend = userID
         }
-        
         //sortedFriends[sortedFriendsChars[indexPath.section]]?[indexPath.row]
         performSegue(withIdentifier: "goToFriendsPhotoCollection", sender: nil)
     }

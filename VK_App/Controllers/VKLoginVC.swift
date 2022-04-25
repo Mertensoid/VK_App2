@@ -44,7 +44,7 @@ class VKLoginVC: UIViewController {
             URLQueryItem(name: "client_id", value: "8081314"),
             URLQueryItem(name: "display", value: "mobile"),
             URLQueryItem(name: "redirect_uri", value: "https://oauth.vk.com/blank.html"),
-            URLQueryItem(name: "scope", value: "262150"),
+            URLQueryItem(name: "scope", value: "140488159"),
             URLQueryItem(name: "response_type", value: "token"),
             URLQueryItem(name: "v", value: "5.131"),
         ]
@@ -99,7 +99,6 @@ extension VKLoginVC: WKNavigationDelegate {
             
             SessionSingleton.instance.token = token
             SessionSingleton.instance.userId = userID
-            
             
             performSegue(withIdentifier: "webSegue", sender: nil)
 

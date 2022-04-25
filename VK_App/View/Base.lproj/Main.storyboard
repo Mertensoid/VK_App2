@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BAd-ln-AVh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dDr-Du-djF">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -57,17 +57,17 @@
                         <outlet property="loadingIndicator1" destination="5bf-8B-LJi" id="eac-HX-3K3"/>
                         <outlet property="loadingIndicator2" destination="CxC-ul-Axr" id="qW5-Yf-faq"/>
                         <outlet property="loadingIndicator3" destination="PPg-kU-udA" id="UhO-AG-SCC"/>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="goToLoginScreen" id="9dJ-Eu-RiB"/>
+                        <segue destination="BAd-ln-AVh" kind="presentation" identifier="goToLoginScreen" id="Yky-Pk-0uf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BWI-4c-mSf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1326.0869565217392" y="93.75"/>
+            <point key="canvasLocation" x="-2120" y="94"/>
         </scene>
         <!--LoginVC-->
         <scene sceneID="cIf-ap-Pen">
             <objects>
-                <viewController id="BAd-ln-AVh" customClass="VKLoginVC" customModule="VK_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="BAd-ln-AVh" customClass="VKLoginVC" customModule="VK_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7Ne-O4-4aL">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -90,6 +90,7 @@
                             <constraint firstItem="ggo-VC-tat" firstAttribute="trailing" secondItem="3LO-Wr-9jr" secondAttribute="trailing" id="tJc-YO-I6E"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="46Q-lS-4od"/>
                     <connections>
                         <outlet property="vkLoginWebView" destination="3LO-Wr-9jr" id="9XG-Uj-43t"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="webSegue" id="piR-lg-ZNI"/>
@@ -97,7 +98,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dst-Gs-CJP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1326" y="826"/>
+            <point key="canvasLocation" x="-1214" y="94"/>
         </scene>
         <!--Login Screen View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -112,6 +113,7 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My VK App" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VeF-wN-MVF">
                                         <rect key="frame" x="147" y="150" width="120.5" height="30"/>
+                                        <color key="backgroundColor" red="0.69481145070000006" green="0.86078917980000003" blue="0.4833568251" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -124,12 +126,14 @@
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u0t-SS-A8Y">
                                                         <rect key="frame" x="0.0" y="0.0" width="78.5" height="34"/>
+                                                        <color key="backgroundColor" red="0.69481145070000006" green="0.86078917980000003" blue="0.4833568251" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8XR-4P-OQa">
                                                         <rect key="frame" x="88.5" y="0.0" width="285.5" height="34"/>
+                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
@@ -144,12 +148,14 @@
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zkx-ea-yLW">
                                                         <rect key="frame" x="0.0" y="0.0" width="73.5" height="34"/>
+                                                        <color key="backgroundColor" red="0.69481145070000006" green="0.86078917980000003" blue="0.4833568251" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kd8-kS-ezY">
                                                         <rect key="frame" x="83.5" y="0.0" width="290.5" height="34"/>
+                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
@@ -261,7 +267,7 @@
                     <navigationItem key="navigationItem" title="Title" id="1WS-dp-Ub9">
                         <barButtonItem key="rightBarButtonItem" title=" " width="20" id="oib-aT-RBY">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="yAD-af-K3y">
-                                <rect key="frame" x="344" y="5" width="50" height="34.5"/>
+                                <rect key="frame" x="343" y="5" width="51" height="34.5"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system" title=" "/>
@@ -448,9 +454,6 @@
             <point key="canvasLocation" x="3586" y="471"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="piR-lg-ZNI"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="newspaper" catalog="system" width="128" height="111"/>
         <image name="person" catalog="system" width="128" height="117"/>

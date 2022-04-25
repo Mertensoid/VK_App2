@@ -169,41 +169,11 @@ extension FindGroupsTableViewController: UITextFieldDelegate {
         networkService.searchGroups(urlQI: urlQI) { [weak self] result in
             switch result {
             case .success(let groups):
-                //TODO: Заменить структуру sortedGroups новой структурой данных из JSON
                 self?.allGroups = groups
                 self?.sortedGroups = self!.allGroups
             case .failure(let error):
                 print(error)
             }
         }
-        
-//        sortedGroups = []
-//        for i in allGroups {
-//            let tempString = textField.text
-//            if i.groupName.hasPrefix(tempString!) {
-//                sortedGroups.append(i)
-//            }
-//        }
-//        tableView.reloadData()
-        
-        
-        
     }
 }
-
-//extension FindGroupsTableViewController: UISearchBarDelegate {
-//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        sortedGroups = []
-//        for i in allGroups {
-//            if i.groupName.hasPrefix(searchText) {
-//                sortedGroups.append(i)
-//            }
-//        }
-//        tableView.reloadData()
-//    }
-//    
-//    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-//        sortedGroups = allGroups
-//        searchBar.endEditing(true)
-//    }
-//}

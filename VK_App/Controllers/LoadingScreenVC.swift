@@ -29,8 +29,6 @@ class LoadingScreenVC: UIViewController {
         animate1()
         animate2()
         animate3()
-        
-        performSegue(withIdentifier: "goToLoginScreen", sender: nil)
     }
     
     func animate1() {
@@ -57,18 +55,9 @@ class LoadingScreenVC: UIViewController {
             delay: 2,
             options: .autoreverse,
             animations: {self.loadingIndicator3.alpha = 1},
-            completion: {_ in self.loadingIndicator3.alpha = 0.3
+            completion: {_ in
+                self.loadingIndicator3.alpha = 0.3
+                self.performSegue(withIdentifier: "goToLoginScreen", sender: nil)
             })
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
